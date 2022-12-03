@@ -1,53 +1,125 @@
-import React from 'react';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-  MDBInput
-}
-from 'mdb-react-ui-kit';
-import image from './../images/logo.png';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Image from './../images/logo.png';
 
-function Login() {
+
+const theme = createTheme();
+
+export default function Login() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
+
   return (
-    <MDBContainer className="my-5">
-
-      <MDBCard className='w-50 mx-auto'>
-        <MDBRow className='my-0'>
-          <MDBCol>
-            <MDBCardBody className='d-flex flex-column'>
-
-              <div className='d-flex flex-row mt-2'>
-              <MDBCardImage src={image} alt="login form" className='rounded-start w-25 mx-auto'/>
-              </div>
-
-              <h5 className="fw-normal mt-0 pb-5" style={{letterSpacing: '1px'}}>Welcome to <span className="text-success">OnTime !</span></h5>
-
-                <MDBInput wrapperClass='mb-4' placeholder='Email' id='formControlLg' type='email' size="md"/>
-                <MDBInput wrapperClass='mb-4' placeholder='Password' id='formControlLg' type='password' size="md"/>
-
-              <MDBBtn className="mb-4 px-5" color='dark' size='md'>Login</MDBBtn>
-              <a className="small text-muted" href="#!">Forgot password?</a>
-              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="#!" style={{color: '#393f81'}}>Register here</a></p>
-
-              <div className='d-flex flex-row justify-content-start'>
-                <a href="#!" className="small text-muted me-1">Terms of use.</a>
-                <a href="#!" className="small text-muted">Privacy policy</a>
-              </div>
-
-            </MDBCardBody>
-          </MDBCol>
-
-        </MDBRow>
-      </MDBCard>
-
-    </MDBContainer>
+    <ThemeProvider theme={theme}>
+      <Container component="main">
+        <CssBaseline />
+        <Box
+          sx={{
+            width: 500,
+            marginTop: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            margin:'auto',
+          }}
+        >
+          <Card sx={{marginTop: 4, borderRadius:3,}}>
+          <CardContent>
+          <Box
+            sx={{
+              marginTop: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              sx={{
+                width: 150,
+                marginTop: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                margin:'auto',
+                marginBottom:0,
+              }}
+            >
+              <img src={Image} alt="logo" sx={{}} />
+            </Box>
+            <Box sx={{display: 'flex'}}>
+            <Typography component="h1" variant="h5">
+              Welcome to
+            </Typography>
+            <Typography component="h1" variant="h5" style={{color: 'green'}} sx={{paddingLeft:1}}>
+              OnTime!
+            </Typography>
+            </Box>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                variant="outlined"
+                sx={{ mt: 3, mb: 2, width:130, borderRadius:10, color: 'black', borderColor: 'black',
+                    '&:hover': {
+                      backgroundColor: '#DCDCDC',
+                      color: 'balck',
+                      borderColor:'black'
+                    },
+                  }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item sx={{margin:'auto'}}>
+                  <Link href="#" variant="body2">
+                    {"Not a member? Register Now"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </CardContent>
+        </Card>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
-
-export default Login;
