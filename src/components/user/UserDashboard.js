@@ -1,19 +1,20 @@
-import { Divider, Grid } from '@mui/material';
+import { Card, Divider, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react'
 import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
+import Image from '../../images/dash1.jpg';
 
 const UserDashboard = () => {
   return (
-        <Grid container sx={{ height: '100%' }}>
+        <Grid container sx={{ height: 1 }}>
           <UserSideBar/>
-          <Grid item xs={10} sx={{ height: '100%' }}>
+          <Grid item xs={10} sx={{ height: 1 }}>
             <Box sx={{
-                  width:'100%',
+                  width:'auto',
                   flexDirection: 'column',
                   borderRight:1,
-                  height:'100%',
+                  height:1,
               }}>
                 <Box sx={{
                   display: 'flex',
@@ -30,7 +31,76 @@ const UserDashboard = () => {
                       Dashboard
                   </Typography>
                 </Box>
-                <Divider variant="middle" sx={{backgroundColor:"grey"}} />
+                <Divider sx={{backgroundColor:"grey"}} />
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}>
+                    <Card sx={{
+                          display: 'flex',
+                          width: 500,
+                          marginTop: 3,
+                          marginLeft: 13,
+                          height: 250,
+                          borderRadius:5,
+                          textAlign:'left'
+                          }}>
+                        <Box sx={{
+                          marginTop:2,
+                          marginLeft:2,
+                        }}>
+                          <Typography component="h1" variant="h3
+                          ">
+                              Hello Chandler !
+                          </Typography>
+                          <Typography component="h6" variant="h6" style={{
+                            color: 'green',
+                            fontSize: 16,
+                        }}>
+                              This is your dashboard today.
+                          </Typography>
+                        </Box>
+                        <Box
+                        sx={{
+                          width: 200,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          margin:'auto',
+                          marginBottom:0,
+                        }}
+                      >
+                        <img src={Image} alt="logo" sx={{}} />
+                      </Box>
+                    </Card>
+                    <Card sx={{
+                          width: 500,
+                          marginTop: 3,
+                          marginLeft: 8,
+                          height: 250,
+                          borderRadius:5,
+                          }}>
+                        <Box sx={{
+                          marginTop:2,
+                          marginLeft:2,
+                          textAlign:'left' 
+                        }}>
+                          <Typography component="h1" variant="h5">
+                              Overall Work Percentage(Weekly)
+                          </Typography>
+                        </Box>
+                        <Box sx={{
+                          margin:'auto',
+                          marginTop:6,
+                        }}>
+                          <Typography component="h6" variant="h6" style={{
+                            color: 'grey',
+                            fontSize: 60,
+                            }}>
+                              93%
+                          </Typography>
+                        </Box>
+                    </Card>
+                </Box>
             </Box>
           </Grid>
         </Grid>
