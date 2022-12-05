@@ -4,16 +4,16 @@ import React from 'react'
 import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
 import Image from '../../images/dash1.jpg';
+import BarChart from './BarChart';
 
 const UserDashboard = () => {
   return (
-        <Grid container sx={{ height: 1 }}>
+        <Grid container sx={{ height:'auto' }}>
           <UserSideBar/>
           <Grid item xs={10} sx={{ height: 1 }}>
             <Box sx={{
                   width:'auto',
                   flexDirection: 'column',
-                  borderRight:1,
                   height:1,
               }}>
                 <Box sx={{
@@ -35,6 +35,7 @@ const UserDashboard = () => {
                 <Box sx={{
                   display: 'flex',
                   flexDirection: 'row',
+                  flexWrap:'wrap',
                 }}>
                     <Card sx={{
                           display: 'flex',
@@ -49,8 +50,7 @@ const UserDashboard = () => {
                           marginTop:2,
                           marginLeft:2,
                         }}>
-                          <Typography component="h1" variant="h3
-                          ">
+                          <Typography component="h1" variant="h3">
                               Hello Chandler !
                           </Typography>
                           <Typography component="h6" variant="h6" style={{
@@ -98,6 +98,29 @@ const UserDashboard = () => {
                             }}>
                               93%
                           </Typography>
+                        </Box>
+                    </Card>
+                    <Card sx={{
+                          width: 1065,
+                          marginTop: 6,
+                          marginLeft: 13,
+                          height:'auto',
+                          borderRadius:5,
+                          marginBottom:2,
+                          }}>
+                        <Box sx={{
+                          marginTop:2,
+                          marginLeft:2,
+                          textAlign:'left' 
+                        }}>
+                          <Typography component="h1" variant="h5">
+                              Overall Work Percentage(Weekly)
+                          </Typography>
+                        </Box>
+                        <Box sx={{
+                          margin:2,
+                        }}>
+                          <BarChart/>
                         </Box>
                     </Card>
                 </Box>
