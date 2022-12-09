@@ -1,12 +1,11 @@
 import './App.css';
-import UserDashboard from './components/user/UserDashboard';
-
+import UserLeaveRequestForm from './components/user/UserLeaveRequestForm';
 
 
 function App() {
   return (
     <div className="App">
-      <UserDashboard/>
+      <UserLeaveRequestForm/>
     </div>
   );
 }

@@ -13,7 +13,7 @@ import { Grid } from '@mui/material';
 
 const UserSideBar = () => {
   return (
-        <Grid item xs={2} sx={{ height: 'full' }}>
+        <Grid item xs={2} sx={{ height: 'auto' }}>
             <Box sx={{
                     width:1,
                     flexDirection: 'column',
