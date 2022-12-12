@@ -44,6 +44,7 @@ const UserLeaveRequestList = () => {
                   flexWrap:'wrap',
                 }}>
                   <Button
+                  href='/user/leaverequests/leaverequestform'
                     type="submit"
                     variant="contained"
                     sx={{ mt: 5, mb: 4, mr: 6, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',

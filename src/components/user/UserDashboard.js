@@ -8,6 +8,7 @@ import BarChart from './BarChart';
 
 const UserDashboard = () => {
   return (
+    <>
         <Grid container sx={{ height:'auto' }}>
           <UserSideBar/>
           <Grid item xs={10} sx={{ height: 1 }}>
@@ -127,6 +128,7 @@ const UserDashboard = () => {
             </Box>
           </Grid>
         </Grid>
+        </>
   )
 }
 

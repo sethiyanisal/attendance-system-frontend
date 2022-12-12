@@ -43,7 +43,7 @@ const UserSideBar = () => {
                     <Divider variant="middle" sx={{backgroundColor:"grey"}} />
                     <List>
                         <ListItem divider>
-                            <ListItemButton>
+                            <ListItemButton href="/user/dashboard">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <Dashboard/>
                                 </ListItemIcon>
@@ -51,7 +51,7 @@ const UserSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem divider>
-                            <ListItemButton>
+                            <ListItemButton href="/user/punchtime">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <PunchClockRounded/>
                                 </ListItemIcon>
@@ -59,7 +59,7 @@ const UserSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem divider>
-                            <ListItemButton>
+                            <ListItemButton href="/user/timecards">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <Watch/>
                                 </ListItemIcon>
@@ -67,7 +67,7 @@ const UserSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem divider>
-                            <ListItemButton>
+                            <ListItemButton href="/user/leaverequests">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <ExitToAppOutlined/>
                                 </ListItemIcon>

@@ -105,7 +105,7 @@ export default function Login() {
               </Button>
               <Grid container>
                 <Grid item sx={{margin:'auto'}}>
-                  <Link href="#" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Not a member? Register Now"}
                   </Link>
                 </Grid>
