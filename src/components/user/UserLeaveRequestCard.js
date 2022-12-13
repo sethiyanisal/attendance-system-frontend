@@ -23,7 +23,7 @@ const UserLeaveRequestCard = () => {
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              #01
@@ -37,7 +37,7 @@ const UserLeaveRequestCard = () => {
                           marginBottom:2,
                           textAlign:'right' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              Personal Leave
@@ -50,7 +50,7 @@ const UserLeaveRequestCard = () => {
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              On 27th nov this month
@@ -62,7 +62,7 @@ const UserLeaveRequestCard = () => {
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              Pending
