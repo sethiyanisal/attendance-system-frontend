@@ -75,7 +75,7 @@ const UserLeaveRequestList = () => {
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              Leave ID
@@ -87,7 +87,7 @@ const UserLeaveRequestList = () => {
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              Type
@@ -99,7 +99,7 @@ const UserLeaveRequestList = () => {
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              Subject
@@ -111,7 +111,7 @@ const UserLeaveRequestList = () => {
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h" variant="h5" style={{
+                          <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
                              Status

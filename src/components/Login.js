@@ -11,19 +11,53 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Image from './../images/logo.png';
+import {useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from '../routes/axios';
+
 
 
 const theme = createTheme();
+const LOGIN_URL = "/";
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+  const navigateTo = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   
+    try {
+        const response = await Axios.post(LOGIN_URL,
+            JSON.stringify({ email, password }),
+            {
+                headers: { 'Content-Type': 'application/json' },
+            }
+        );
+        navigateTo("/user/dashboard");
+        // TODO: remove console.logs before deployment
+        console.log(JSON.stringify(response?.data));
+        //console.log(JSON.stringify(response))
+        setSuccess(true);
+    } catch (err) {
+        if (!err?.response) {
+            setErrMsg('No Server Response');
+        } else if (err.response?.status === 409) {
+            setErrMsg('Username Taken');
+        } else {
+            setErrMsg('Registration Failed')
+        }
+        
+    }
+}
+;
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,6 +113,8 @@ export default function Login() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -88,7 +124,9 @@ export default function Login() {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <Button
                 type="submit"

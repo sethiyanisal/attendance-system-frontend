@@ -11,22 +11,61 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Image from './../images/logo.png';
+import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from '../routes/axios';
 
 
 const theme = createTheme();
 
+const REGISTER_URL = "/register";
+
 export default function SignUp() {
 
+    const navigateTo = useNavigate();
+    const userRef = useRef();
+    const errRef = useRef();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactnum, setContactNum] = useState("");
+    const [password, setPassword] = useState("");
+    const [conpassword, setConPassword] = useState("");
 
+    const [errMsg, setErrMsg] = useState("");
+    const [success, setSuccess] = useState(false);
+
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+     
+      try {
+          const response = await Axios.post(REGISTER_URL,
+              JSON.stringify({ firstName, lastName, email, contactnum, password, conpassword }),
+              {
+                  headers: { 'Content-Type': 'application/json' },
+              }
+          );
+          navigateTo("/");
+          // TODO: remove console.logs before deployment
+          console.log(JSON.stringify(response?.data));
+          //console.log(JSON.stringify(response))
+          setSuccess(true);
+      } catch (err) {
+          if (!err?.response) {
+              setErrMsg('No Server Response');
+          } else if (err.response?.status === 409) {
+              setErrMsg('Username Taken');
+          } else {
+              setErrMsg('Registration Failed')
+          }
+          
+      }
+  }
+
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main"  sx={{paddingTop: 4, paddingBottom: 4,}}>
@@ -77,13 +116,15 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  autoFocus
+                  ref={userRef}
+                  autoComplete="off"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -93,7 +134,10 @@ export default function SignUp() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  autoComplete="family-name"
+                  ref={userRef}
+                  autoComplete="off"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -103,7 +147,10 @@ export default function SignUp() {
                   id="email"
                   label="Email"
                   name="email"
-                  autoComplete="email"
+                  ref={userRef}
+                  autoComplete="off"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -113,7 +160,10 @@ export default function SignUp() {
                   id="contactnum"
                   label="Contact Number"
                   name="contactnum"
-                  autoComplete="contactnum"
+                  ref={userRef}
+                  autoComplete="off"
+                  value={contactnum}
+                  onChange={(e) => setContactNum(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -124,7 +174,10 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  ref={userRef}
+                  autoComplete="off"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -135,7 +188,10 @@ export default function SignUp() {
                   label="Confirm Password"
                   type="password"
                   id="conpassword"
-                  autoComplete="new-con-password"
+                  ref={userRef}
+                  autoComplete="off"
+                  value={conpassword}
+                  onChange={(e) => setConPassword(e.target.value)}
                 />
               </Grid>
             </Grid>
