@@ -14,6 +14,8 @@ import Image from './../images/logo.png';
 import {useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from '../routes/axios';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useLogin } from '../hooks/useLogin';
 
 
 
@@ -29,35 +31,27 @@ export default function Login() {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const {login, error, isLoading} = useLogin();
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+    
     try {
-        const response = await Axios.post(LOGIN_URL,
-            JSON.stringify({ email, password }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-            }
-        );
-        navigateTo("/user/dashboard");
-        // TODO: remove console.logs before deployment
-        console.log(JSON.stringify(response?.data));
-        //console.log(JSON.stringify(response))
-        setSuccess(true);
-    } catch (err) {
-        if (!err?.response) {
-            setErrMsg('No Server Response');
-        } else if (err.response?.status === 409) {
-            setErrMsg('Username Taken');
-        } else {
-            setErrMsg('Registration Failed')
-        }
-        
-    }
-}
-;
+      const response = await login(email, password);
+      navigateTo("/user/dashboard");
+      setSuccess(true);
+  } catch (err) {
+      if (!err?.response) {
+          setErrMsg('No Server Response');
+      } else if (err.response?.status === 409) {
+          setErrMsg('Username Taken');
+      } else {
+          setErrMsg('Registration Failed')
+      }
+      
+  }
+};
 
   return (
     <ThemeProvider theme={theme}>

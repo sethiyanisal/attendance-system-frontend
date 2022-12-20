@@ -47,7 +47,7 @@ const UserLeaveRequestList = () => {
                   href='/user/leaverequests/leaverequestform'
                     type="submit"
                     variant="contained"
-                    sx={{ mt: 5, mb: 4, mr: 6, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
+                    sx={{ mt: 5, mb: 4, mr: 15, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
                     '&:hover': {
                       backgroundColor: '#FF7D7D',
                       color: 'white',

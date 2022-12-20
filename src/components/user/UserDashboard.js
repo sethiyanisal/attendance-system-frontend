@@ -1,10 +1,28 @@
-import { Card, Divider, Grid } from '@mui/material';
+import { Card, createTheme, Divider, Grid, ThemeProvider } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react'
 import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
 import Image from '../../images/dash1.jpg';
 import BarChart from './BarChart';
+ 
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
+
 
 const UserDashboard = () => {
   return (
@@ -85,9 +103,13 @@ const UserDashboard = () => {
                           marginLeft:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h1" variant="h5">
+                        <ThemeProvider theme={theme}>
+                          <Typography component="h1" variant="h5" sx={{
+                                                                        fontFamily: 'BlinkMacSystemFont',
+                                                                      }}>
                               Overall Work Percentage(Weekly)
                           </Typography>
+                        </ThemeProvider>
                         </Box>
                         <Box sx={{
                           margin:'auto',
@@ -114,9 +136,13 @@ const UserDashboard = () => {
                           marginLeft:2,
                           textAlign:'left' 
                         }}>
-                          <Typography component="h1" variant="h5">
+                          <ThemeProvider theme={theme}>
+                          <Typography component="h1" variant="h5" sx={{
+                                                                        fontFamily: 'Oxygen',
+                                                                      }}>
                               Overall Work Percentage(Weekly)
                           </Typography>
+                          </ThemeProvider>
                         </Box>
                         <Box sx={{
                           margin:2,
