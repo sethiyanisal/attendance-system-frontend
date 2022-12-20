@@ -10,7 +10,7 @@ const UserLeaveRequestList = () => {
     <>
         <Grid container sx={{ height:'auto' }}>
           <UserSideBar/>
-          <Grid item xs={10} sx={{ height: 1, mb:2, }}>
+          <Grid item xs={10} sx={{ height: 1, mb:2, borderLeft:1 }}>
             <Box sx={{
                   width:'auto',
                   flexDirection: 'column',

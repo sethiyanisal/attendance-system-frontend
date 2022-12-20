@@ -15,16 +15,18 @@ const UserSideBar = () => {
   return (
         <Grid item xs={2} sx={{ height: 'auto' }}>
             <Box sx={{
-                    width:1,
+                    width:'full',
                     flexDirection: 'column',
-                    borderRight:1,
+                    marginRight:0,
                     height:1,
+                    position:'fixed'
                 }}>
 
                 <Box sx={{
                     width:1,
                     flexDirection: 'column',
                     paddingTop:2,
+                    marginRight:0
                 }}>
 
                     <Box
