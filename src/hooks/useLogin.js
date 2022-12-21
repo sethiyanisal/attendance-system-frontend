@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
-import Axios from '../routes/axios'
+import { useNavigate } from 'react-router-dom'
 
-const LOGIN_URL = "/";
 
 export const useLogin = () => {
+
+    const navigateTo = useNavigate();
+
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
@@ -32,7 +34,8 @@ export const useLogin = () => {
         dispatch({type: 'LOGIN', payload: json})
   
         // update loading state
-        setIsLoading(false)
+        setIsLoading(false);
+        navigateTo("/user/dashboard");
       }
 
     

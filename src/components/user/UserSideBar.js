@@ -6,28 +6,45 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
-import { Dashboard, ExitToAppOutlined, PunchClockRounded, Watch } from '@mui/icons-material';
+import { Dashboard, ExitToAppOutlined, LoginOutlined, PunchClockRounded, Watch } from '@mui/icons-material';
 import Image from './../../images/logo.png';
 import { Grid } from '@mui/material';
+import { borderRight } from '@mui/system';
+import { useLogout } from '../../hooks/useLogout';
+import { useNavigate } from 'react-router-dom';
 
 
 const UserSideBar = () => {
+
+const navigateTo = useNavigate();
+const { logout } = useLogout();
+
+const handleClick = () => {
+    
+    try {
+        const response = logout();
+        navigateTo("/");
+    } catch (err) {
+    }
+}
+  
   return (
-        <Grid item xs={2} sx={{ height: 'auto' }}>
+        <Grid item xs={2} sx={{ height:'full' }}>
             <Box sx={{
-                    width:'full',
+                    width:'16.6667%',
+                    paddingTop:2,
                     flexDirection: 'column',
-                    marginRight:0,
                     height:1,
-                    position:'fixed'
+                    position:'fixed',
+                    borderRight:1,
                 }}>
 
-                <Box sx={{
+                {/* <Box sx={{
                     width:1,
                     flexDirection: 'column',
                     paddingTop:2,
                     marginRight:0
-                }}>
+                }}> */}
 
                     <Box
                     sx={{
@@ -77,7 +94,21 @@ const UserSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                     </List>
-                </Box>
+                    <Box sx={{
+                        marginTop:35
+                    }}>
+                    <List>
+                        <ListItem>
+                        <ListItemButton onClick={handleClick}>
+                                <ListItemIcon sx={{ color: "grey" }}>
+                                    <LoginOutlined/>
+                                </ListItemIcon>
+                                <ListItemText  primary="Logout" />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                    </Box>
+                {/* </Box> */}
             </Box>
         </Grid>
   )

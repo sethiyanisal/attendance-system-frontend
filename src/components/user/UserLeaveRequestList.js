@@ -8,11 +8,13 @@ import UserLeaveRequestCard from './UserLeaveRequestCard';
 const UserLeaveRequestList = () => {
   return (
     <>
-        <Grid container sx={{ height:'auto' }}>
+      <Box sx={{
+      }}>
+        <Grid container sx={{ height:'full' }}>
           <UserSideBar/>
-          <Grid item xs={10} sx={{ height: 1, mb:2, borderLeft:1 }}>
+          <Grid item xs={10} sx={{ height: 1, mb:2}}>
             <Box sx={{
-                  width:'auto',
+                  width:1,
                   flexDirection: 'column',
                   height:1,
               }}>
@@ -120,11 +122,11 @@ const UserLeaveRequestList = () => {
                     </Card>
                     <UserLeaveRequestCard/>
                     <UserLeaveRequestCard/>
-                    <UserLeaveRequestCard/>
-                    <UserLeaveRequestCard/>     
+                      
             </Box>
           </Grid>
         </Grid>
+        </Box>
     </>
   )
 }

@@ -27,11 +27,9 @@ const theme = createTheme({
 const UserDashboard = () => {
   return (
     <>
-        <Grid container sx={{ height:'auto',  }}>
+        <Grid container sx={{ height:1 }}>
           <UserSideBar/>
-          <Grid item xs={10} sx={{ height: 1,
-                                   borderLeft:1,
-                                   }}>
+          <Grid item xs={10} sx={{ height:'full' }}>
             <Box sx={{
                   width:'auto',
                   flexDirection: 'column',

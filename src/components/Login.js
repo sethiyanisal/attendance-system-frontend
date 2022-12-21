@@ -12,9 +12,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Image from './../images/logo.png';
 import {useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Axios from '../routes/axios';
-import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogin } from '../hooks/useLogin';
 
 
@@ -23,8 +21,6 @@ const theme = createTheme();
 const LOGIN_URL = "/";
 
 export default function Login() {
-
-  const navigateTo = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,8 +35,6 @@ export default function Login() {
     
     try {
       const response = await login(email, password);
-      navigateTo("/user/dashboard");
-      setSuccess(true);
   } catch (err) {
       if (!err?.response) {
           setErrMsg('No Server Response');
@@ -48,8 +42,7 @@ export default function Login() {
           setErrMsg('Username Taken');
       } else {
           setErrMsg('Registration Failed')
-      }
-      
+      }  
   }
 };
 
