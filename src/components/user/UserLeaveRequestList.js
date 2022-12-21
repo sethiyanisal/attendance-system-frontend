@@ -8,11 +8,13 @@ import UserLeaveRequestCard from './UserLeaveRequestCard';
 const UserLeaveRequestList = () => {
   return (
     <>
-        <Grid container sx={{ height:'auto' }}>
+      <Box sx={{
+      }}>
+        <Grid container sx={{ height:'full' }}>
           <UserSideBar/>
-          <Grid item xs={10} sx={{ height: 1, mb:2, }}>
+          <Grid item xs={10} sx={{ height: 1, mb:2}}>
             <Box sx={{
-                  width:'auto',
+                  width:1,
                   flexDirection: 'column',
                   height:1,
               }}>
@@ -47,7 +49,7 @@ const UserLeaveRequestList = () => {
                   href='/user/leaverequests/leaverequestform'
                     type="submit"
                     variant="contained"
-                    sx={{ mt: 5, mb: 4, mr: 6, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
+                    sx={{ mt: 5, mb: 4, mr: 15, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
                     '&:hover': {
                       backgroundColor: '#FF7D7D',
                       color: 'white',
@@ -120,11 +122,11 @@ const UserLeaveRequestList = () => {
                     </Card>
                     <UserLeaveRequestCard/>
                     <UserLeaveRequestCard/>
-                    <UserLeaveRequestCard/>
-                    <UserLeaveRequestCard/>     
+                      
             </Box>
           </Grid>
         </Grid>
+        </Box>
     </>
   )
 }
