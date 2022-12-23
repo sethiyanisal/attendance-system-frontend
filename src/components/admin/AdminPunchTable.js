@@ -48,7 +48,22 @@ export default function AdminPunchTable() {
               <TableCell align="center">{row.date}</TableCell>
               <TableCell align="center">{row.description}</TableCell>
               <TableCell align="center">{row.hours}</TableCell>
-              <TableCell align="center">{row.button}   </TableCell>
+              <TableCell align="center"> 
+              <Button
+                  href='/user/leaverequests/leaverequestform'
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 5, mb: 4, mr: 6, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
+                    '&:hover': {
+                      backgroundColor: '#FF7D7D',
+                      color: 'white',
+                      borderColor:'black'
+                  },   
+                  }}
+                  >
+                    Request Leave
+                  </Button>
+                </TableCell>
             </TableRow>
           ))}
         </TableBody>
