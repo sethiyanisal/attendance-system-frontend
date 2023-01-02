@@ -6,10 +6,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Image from './../../images/logo.png';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers-pro';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 
