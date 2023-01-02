@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Divider, Grid } from '@mui/material';
+import {Button, Card, Divider, Grid } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -50,10 +50,10 @@ export default function AdminPunchTable() {
               <TableCell align="center">{row.hours}</TableCell>
               <TableCell align="center"> 
               <Button
-                  href='/user/leaverequests/leaverequestform'
+                  href='/user/leaverequests/'
                     type="submit"
                     variant="contained"
-                    sx={{ mt: 5, mb: 4, mr: 6, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
+                    sx={{ mt: 5, mb: 4, mr: 6, width:75, borderRadius:10,  color: 'white', backgroundColor:'Black', borderColor: 'black',
                     '&:hover': {
                       backgroundColor: '#FF7D7D',
                       color: 'white',
@@ -61,7 +61,7 @@ export default function AdminPunchTable() {
                   },   
                   }}
                   >
-                    Request Leave
+                    View
                   </Button>
                 </TableCell>
             </TableRow>

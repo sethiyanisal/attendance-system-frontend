@@ -4,7 +4,7 @@ import React from 'react'
 
 import {Typography} from '@mui/material';
 import Image from '../../images/dash1.jpg';
-import BarChart from './BarChart';
+
 import AdminSideBar from './AdminSideBar';
 
 const AdminDashboard = () => {
@@ -97,7 +97,7 @@ const AdminDashboard = () => {
                             color: 'grey',
                             fontSize: 60,
                             }}>
-                             <BarChart/>
+                            
                           </Typography>
                         </Box>
                     </Card>
