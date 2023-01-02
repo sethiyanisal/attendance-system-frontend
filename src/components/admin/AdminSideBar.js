@@ -43,7 +43,7 @@ const AdminSideBar = () => {
                     <Divider variant="middle" sx={{backgroundColor:"grey"}} />
                     <List>
                         <ListItem divider>
-                            <ListItemButton>
+                        <ListItemButton href="/admin/dashboard">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <Dashboard/>
                                 </ListItemIcon>
@@ -51,7 +51,7 @@ const AdminSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem divider>
-                            <ListItemButton>
+                        <ListItemButton href="/admin/dashboard">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <PunchClockRounded/>
                                 </ListItemIcon>
@@ -59,7 +59,7 @@ const AdminSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem divider>
-                            <ListItemButton>
+                        <ListItemButton href="/admin/timecard">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <Watch/>
                                 </ListItemIcon>
