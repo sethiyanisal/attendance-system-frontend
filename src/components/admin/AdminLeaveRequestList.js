@@ -1,17 +1,18 @@
 import React from 'react';
 import { Button, Card, Divider, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
-import UserLeaveRequestCard from './UserLeaveRequestCard';
+import AdminLeaveRequestCard from './AdminLeaveRequestCard';
+import AdminSideBar from './AdminSideBar';
 
-const UserLeaveRequestList = () => {
+
+const AdminLeaveRequestList = () => {
   return (
     <>
       <Box sx={{
       }}>
         <Grid container sx={{ height:'full' }}>
-          <UserSideBar/>
+          <AdminSideBar/>
           <Grid item xs={10} sx={{ height: 1, mb:2}}>
             <Box sx={{
                   width:1,
@@ -46,7 +47,7 @@ const UserLeaveRequestList = () => {
                   flexWrap:'wrap',
                 }}>
                   <Button
-                  href='/user/leaverequests/leaverequestform'
+                  href='#'
                     type="submit"
                     variant="contained"
                     sx={{ mt: 5, mb: 4, mr: 15, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
@@ -57,7 +58,7 @@ const UserLeaveRequestList = () => {
                   },   
                   }}
                   >
-                    Request Leave
+                    Print PDF
                   </Button>
                 </Box>
                 
@@ -92,12 +93,24 @@ const UserLeaveRequestList = () => {
                           <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
-                             Type
+                             Name
                           </Typography>
                         </Box>
                         <Box sx={{
                           marginTop:2,
-                          marginLeft:24,
+                          marginLeft:16,
+                          marginBottom:2,
+                          textAlign:'left' 
+                        }}>
+                          <Typography component="h1" variant="h5" style={{
+                            fontSize: 16,
+                        }}>
+                             Leave Type
+                          </Typography>
+                        </Box>
+                        <Box sx={{
+                          marginTop:2,
+                          marginLeft:20,
                           marginBottom:2,
                           textAlign:'left' 
                         }}>
@@ -107,21 +120,9 @@ const UserLeaveRequestList = () => {
                              Subject
                           </Typography>
                         </Box>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:30,
-                          marginBottom:2,
-                          textAlign:'left' 
-                        }}>
-                          <Typography component="h1" variant="h5" style={{
-                            fontSize: 16,
-                        }}>
-                             Status
-                          </Typography>
-                        </Box>
                     </Card>
-                    <UserLeaveRequestCard/>
-                    <UserLeaveRequestCard/>
+                    <AdminLeaveRequestCard/>
+                    <AdminLeaveRequestCard/>
                       
             </Box>
           </Grid>
@@ -131,4 +132,4 @@ const UserLeaveRequestList = () => {
   )
 }
 
-export default UserLeaveRequestList;
+export default AdminLeaveRequestList;

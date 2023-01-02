@@ -14,6 +14,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 import TimeCard from './components/user/TimeCard';
 import PunchTime from './components/user/PunchTime';
 import AdminTimeCard from './components/admin/AdminTimeCard';
+import AdminLeaveRequestList from './components/admin/AdminLeaveRequestList';
 
 
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/user/leaverequests/leaverequestform" element={<UserLeaveRequestForm/>}></Route>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
           <Route path="/admin/timecard" element={<AdminTimeCard/>}></Route>
+          <Route path="/admin/leaverequests" element={<AdminLeaveRequestList/>}></Route>
         </Routes>
       </Router>
     </div>
