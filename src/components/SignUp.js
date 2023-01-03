@@ -33,6 +33,7 @@ export default function SignUp() {
     const [contactnum, setContactNum] = useState("");
     const [password, setPassword] = useState("");
     const [conpassword, setConPassword] = useState("");
+    const [userRole, setUserRole] = useState("2080");
 
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
@@ -43,7 +44,7 @@ export default function SignUp() {
      
       try {
           const response = await Axios.post(REGISTER_URL,
-              JSON.stringify({ firstName, lastName, email, contactnum, password, conpassword }),
+              JSON.stringify({ firstName, lastName, email, contactnum, password, conpassword, userRole }),
               {
                   headers: { 'Content-Type': 'application/json' },
               }
@@ -194,6 +195,12 @@ export default function SignUp() {
                   onChange={(e) => setConPassword(e.target.value)}
                 />
               </Grid>
+                {/* <TextField
+                  name="role"
+                  type="hidden"
+                  id="role"
+                  value="2080"
+                /> */}
             </Grid>
             <Button
               type="submit"
