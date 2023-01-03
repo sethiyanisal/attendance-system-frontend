@@ -15,7 +15,13 @@ import TimeCard from './components/user/TimeCard';
 import PunchTime from './components/user/PunchTime';
 import AdminTimeCard from './components/admin/AdminTimeCard';
 import AdminLeaveRequestList from './components/admin/AdminLeaveRequestList';
+import Layout from './components/Layout';
 
+const ROLES = {
+  'User': 2080,
+  'Editor': 1984,
+  'Admin': 5150
+}
 
 
 
@@ -24,6 +30,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route path="/" element={<Layout/>}>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<SignUp />}></Route>
           <Route path="/user/dashboard" element={<UserDashboard />}></Route>
