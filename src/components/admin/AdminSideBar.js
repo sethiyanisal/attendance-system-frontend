@@ -51,7 +51,7 @@ const AdminSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem divider>
-                        <ListItemButton href="/admin/dashboard">
+                        <ListItemButton href="/user/punchtime">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <PunchClockRounded/>
                                 </ListItemIcon>
@@ -67,7 +67,7 @@ const AdminSideBar = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem divider>
-                            <ListItemButton>
+                        <ListItemButton href="/admin/leaverequests">
                                 <ListItemIcon sx={{ color: "grey" }}>
                                     <ExitToAppOutlined/>
                                 </ListItemIcon>
