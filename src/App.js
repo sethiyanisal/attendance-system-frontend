@@ -41,6 +41,7 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
           <Route path="/admin/timecard" element={<AdminTimeCard/>}></Route>
           <Route path="/admin/leaverequests" element={<AdminLeaveRequestList/>}></Route>
+          </Route>
         </Routes>
       </Router>
     </div>
