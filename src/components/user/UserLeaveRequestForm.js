@@ -6,11 +6,49 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Image from './../../images/logo.png';
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from '../../routes/axios';
 
-
-const UserLeaveRequestForm = () => {
+const LeaveRequest_URL = "/requestleave"
+export default function UserLeaveRequestForm(){
+    const navigateTo = useNavigate();
+    const userRef = useRef();
+    const errRef = useRef();
+   
     
+    const [leavetype, setLeavetype] = useState("");
+    const [dateFrom, setDateFrom] = useState("");
+    const [dateTo, setDateTo] = useState("");
+    const [subject, setSubject] = useState("");
+
+    const [errMsg, setErrMsg] = useState("");
+    const [success, setSuccess] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    try {
+        const response = await Axios.post(LeaveRequest_URL,
+            JSON.stringify({ leavetype, dateFrom, dateTo, subject }),
+            {
+                headers: { 'Content-Type': 'application/json' },
+            }
+        );
+        navigateTo("user/leaverequests");
+        // TODO: remove console.logs before deployment
+        console.log(JSON.stringify(response?.data));
+        //console.log(JSON.stringify(response))
+        setSuccess(true);
+    } catch (err) {
+        if (!err?.response) {
+            setErrMsg('No Server Response');
+        } 
+        else {
+            setErrMsg('Request Failed')
+        }
+        
+    }
+    }
   return (
     <>
         <Box sx={{
@@ -54,7 +92,7 @@ const UserLeaveRequestForm = () => {
                   </Typography>
                 </Box>
 
-                <Box component="form" noValidate sx={{ mt: 3, ml:30, width: 1000, }}>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, ml:30, width: 1000, }}>
                 <Grid container spacing={4}>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -99,16 +137,16 @@ const UserLeaveRequestForm = () => {
                 </Grid>
                 <Grid item xs={12}>
                 <FormControl fullWidth>
-                <InputLabel id="leave-type">Leave Type</InputLabel>
-                    <Select
+                <InputLabel id="leavetype">Leave Type</InputLabel>
+                    <TextField
                         labelId="leave-type"
-                        id="leave-type"
+                        id="leavetype"
                         label="leave-type"
-                    >
-                        <MenuItem >Personal Leave</MenuItem>
-                        <MenuItem >Medical Leave</MenuItem>
-                        <MenuItem >Annual Leave</MenuItem>
-                    </Select>
+                        name="leavetype"
+                        value={leavetype}
+                        onChange={(e) => setLeavetype(e.target.value)}
+                    
+                    />
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -116,10 +154,11 @@ const UserLeaveRequestForm = () => {
                         type="date"
                         required
                         fullWidth
-                        id="datefrom"
+                        id="dateFrom"
                         label="From"
-                        name="datefrom"
-                        defaultValue="2019-05-24"
+                        name="dateFrom"
+                        value={dateFrom}
+                        onChange={(e) => setDateFrom(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -127,20 +166,25 @@ const UserLeaveRequestForm = () => {
                         type="date"
                         required
                         fullWidth
-                        id="dateto"
+                        id="dateTo"
                         label="To"
-                        name="dateto"
-                        defaultValue="2019-05-24"
+                        name="dateTo"
+                        value={dateTo}
+                        onChange={(e) => setDateTo(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12}>
                 <TextField
                         fullWidth
                         multiline
+                        id="subject"
                         label="Subject (reason)"
+                        name ="subject"
                         InputProps={{
                             inputComponent: TextareaAutosize
                         }}
+                        value={subject}
+                        onChange={(e) => setSubject(e.target.value)}
                     />
                 </Grid>
                 </Grid>
@@ -160,7 +204,6 @@ const UserLeaveRequestForm = () => {
             </Box>
         </Box>
     </>
-  )
+  );
 }
 
-export default UserLeaveRequestForm;

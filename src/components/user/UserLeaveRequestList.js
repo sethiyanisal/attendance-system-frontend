@@ -1,11 +1,19 @@
-import React from 'react';
+
 import { Button, Card, Divider, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
 import UserLeaveRequestCard from './UserLeaveRequestCard';
 
+import  { React, useEffect } from "react";
+import axios from "axios";
+
+
 const UserLeaveRequestList = () => {
+  
+
+
+
   return (
     <>
       <Box sx={{
@@ -121,7 +129,7 @@ const UserLeaveRequestList = () => {
                         </Box>
                     </Card>
                     <UserLeaveRequestCard/>
-                    <UserLeaveRequestCard/>
+                    
                       
             </Box>
           </Grid>
