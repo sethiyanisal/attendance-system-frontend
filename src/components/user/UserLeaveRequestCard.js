@@ -9,9 +9,9 @@ const UserLeaveRequestCard = () => {
 useEffect(()=>{
   viewLeaveRequest();},
 []);
-const userRef = useRef();
+
 const viewLeaveRequest = async()=>{
-const response = await Axios.get("user/viewleaverequest");
+const response = await Axios.get("/user/viewleaverequest");
 setLeave(response.data);
 };
   return (

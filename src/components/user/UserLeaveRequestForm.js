@@ -10,7 +10,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from '../../routes/axios';
 
-const LeaveRequest_URL = "/requestleave"
+const LeaveRequest_URL = "/user/requestleave"
 export default function UserLeaveRequestForm(){
     const navigateTo = useNavigate();
     const userRef = useRef();
