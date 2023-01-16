@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 
 export const useLogin = () => {
 
     const navigateTo = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/user/dashboard";
 
     const { setAuth } = useAuthContext();
 
@@ -33,11 +35,11 @@ export const useLogin = () => {
   
         // update the auth context
         setAuth({user});
-        console.log();
+        
   
         // update loading state
         setIsLoading(false);
-        navigateTo("/user/dashboard");
+        navigateTo(from, { replace: true });
       }
 
     
