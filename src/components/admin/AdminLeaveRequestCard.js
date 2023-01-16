@@ -10,10 +10,10 @@ const AdminLeaveRequestCard = () => {
   const [leaveData, setLeave] = useState();
 
   useEffect(() => {
-    const userID = auth.user.id;
+    
     const token = auth.user.token;
       leaveRequestService
-        .getAllLeaveRequests(userID, token)
+        .getAllLeaveRequests(token)
         .then((res) => {
           setLeave(res.data.data);
           console.log(res.data)

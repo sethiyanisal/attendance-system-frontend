@@ -142,7 +142,7 @@ const UserLeaveRequestList = () => {
                         </Box>
                     </Card>
                     <UserLeaveRequestCard/>
-                    <UserLeaveRequestCard/>
+                    
                       
             </Box>
           </Grid>

@@ -27,8 +27,8 @@ const UserLeaveRequestCard = () => {
 
 
   return (
-    <>
-        <Card sx={{
+    <>{leaveData.map((leaveData,index)=>( 
+      <Card key={leaveData._id} sx={{
                           display: 'flex',
                           flexDirection: 'row',
                           width: 1100,
@@ -61,7 +61,7 @@ const UserLeaveRequestCard = () => {
                           <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
-                             Personal Leave
+                             {leaveData.leavetype}
                           </Typography>
                         </Box>
                         <Box sx={{
@@ -74,7 +74,7 @@ const UserLeaveRequestCard = () => {
                           <Typography component="h1" variant="h5" style={{
                             fontSize: 16,
                         }}>
-                             On 27th nov this month
+                             {leaveData.subject}
                           </Typography>
                         </Box>
                         <Box sx={{
@@ -110,6 +110,7 @@ const UserLeaveRequestCard = () => {
                         </Button>
                         </Box>
                     </Card>
+    ))}
     </>
   )
 }

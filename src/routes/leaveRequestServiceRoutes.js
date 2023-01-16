@@ -8,7 +8,7 @@ const getLeaveRequestsById = (userID, token) => {
   return Axios.get("/user/leaverequestsbyid/" +userID, {headers: headers});
 };
 
-const getAllLeaveRequests = (userID, token)=> {
+const getAllLeaveRequests = (token) => {
   const headers = {
     'Authorization' : 'Bearer' + token
   }
@@ -17,7 +17,7 @@ const getAllLeaveRequests = (userID, token)=> {
 
 const leaveRequestService = {
     getLeaveRequestsById,
-    getAllLeaveRequests
+    getAllLeaveRequests,
 };
 
 
