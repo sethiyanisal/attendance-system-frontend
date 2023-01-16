@@ -51,43 +51,40 @@ const TimeCard = () => {
                          
                         }}>
                           
-                          <FormControl  
+                <FormControl  
                     sx={{
                       width:'50%',
                       fontWeight:'bold',
                       paddingTop:8,
-                      paddingLeft: 4,
+                      paddingLeft: 7,
                       paddingBottom:4.5,
                       }}>
-                     <DatePick/> 
-                      
-</FormControl>
-                           
-
+                     <DatePick/>   
+                </FormControl>
                  
                  <Typography component="h1" variant="h5" sx={{
                     fontWeight:'bold',
                     paddingTop:6,
-                    paddingLeft: 50,
+                    paddingLeft: 52,
                     paddingBottom:2,
                     float:'right',
                     }}>
                     <Button
-                             
                              paddingBottom="4.5"
                              type="submit"
                              Width="flex"
                              float="right"
                              variant="contained"
-                             sx={{ mt: 3, mb: 2,backgroundColor:"red" }}>
-                                 Print PDF
-                                  </Button> 
+                             sx={{ mt: 3, mb: 2,backgroundColor:"#FB5353" }}>
+                          Print PDF
+                    </Button> 
                                   
                     </Typography>
            
                         </Box>
                         <Box sx={{    paddingBottom:'6',
-                          margin:2,
+                          marginLeft:7,
+                          marginRight:7,
                         }}>
                           <PunchTable/>
                         </Box>
