@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card } from '@mui/material';
 import { Box } from '@mui/system';
 import {Typography} from '@mui/material';
-
+import { useAuthContext } from '../../hooks/useAuthContext';
+import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
 
 const AdminLeaveRequestCard = () => {
+  const { auth } = useAuthContext();
+  const [leaveData, setLeave] = useState();
+
+  useEffect(() => {
+    const userID = auth.user.id;
+    const token = auth.user.token;
+      leaveRequestService
+        .getAllLeaveRequests(userID, token)
+        .then((res) => {
+          setLeave(res.data.data);
+          console.log(res.data)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, []);
+
   return (
     <>
         <Card sx={{
