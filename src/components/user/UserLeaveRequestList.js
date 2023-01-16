@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Divider, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
 import UserLeaveRequestCard from './UserLeaveRequestCard';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
 
 const UserLeaveRequestList = () => {
+  
+
+  // const { auth } = useAuthContext();
+  // const [leaveData, setLeave] = useState();
+
+  // useEffect(() => {
+  //   const userID = auth.user.id;
+  //   const token = auth.user.token;
+  //     leaveRequestService
+  //       .getLeaveRequestsById(userID, token)
+  //       .then((res) => {
+  //         setLeave(res.data.data);
+  //         console.log(res.data)
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  // }, []);
+
   return (
     <>
       <Box sx={{
