@@ -6,9 +6,11 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Image from './../../images/logo.png';
+import { useState } from 'react';
 
 
 const UserLeaveRequestForm = () => {
+    
   return (
     <>
         <Box sx={{
@@ -111,22 +113,24 @@ const UserLeaveRequestForm = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
+                        type="date"
+                        required
+                        fullWidth
+                        id="datefrom"
+                        label="From"
+                        name="datefrom"
+                        defaultValue="2019-05-24"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
+                <TextField
+                        type="date"
+                        required
+                        fullWidth
+                        id="dateto"
+                        label="To"
+                        name="dateto"
+                        defaultValue="2019-05-24"
                     />
                 </Grid>
                 <Grid item xs={12}>

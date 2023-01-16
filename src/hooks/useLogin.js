@@ -1,15 +1,18 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 
 export const useLogin = () => {
 
     const navigateTo = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/user/dashboard";
+
+    const { setAuth } = useAuthContext();
 
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
-    const { dispatch } = useAuthContext()
   
     const login = async (email, password) => {
       setIsLoading(true)
@@ -20,22 +23,23 @@ export const useLogin = () => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ email, password })
       })
-      const json = await response.json()
+      const user = await response.json()
   
       if (!response.ok) {
         setIsLoading(false)
-        setError(json.error)
+        setError(user.error)
       }
       if (response.ok) {
         // save the user to local storage
-        localStorage.setItem('user', JSON.stringify(json))
+        localStorage.setItem('user', JSON.stringify(user))
   
         // update the auth context
-        dispatch({type: 'LOGIN', payload: json})
+        setAuth({user});
+        
   
         // update loading state
         setIsLoading(false);
-        navigateTo("/user/dashboard");
+        navigateTo(from, { replace: true });
       }
 
     
