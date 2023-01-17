@@ -3,13 +3,27 @@ import { Box } from '@mui/system';
 import React from 'react'
 import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
-import Image from '../../images/dash1.jpg';
-import BarChart from './BarChart';
 import { BiAlarm } from "react-icons/bi";
-import { FcAlarmClock } from "react-icons/fc";
 import Button from '@mui/material/Button';
+import {useEffect, useState } from 'react';
+
 
 const PunchTime = () => {
+
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const timerID = setInterval(() => tick(), 1000);
+
+    return function cleanup() {
+      clearInterval(timerID);
+    };
+  });
+
+  function tick() {
+    setDate(new Date());
+  }
+
   return (
         <Grid container sx={{ height:'auto' }}>
           <UserSideBar/>
@@ -44,65 +58,70 @@ const PunchTime = () => {
                    
                     
                     <Card sx={{
-                          width: '75%',
+                          width: 500,
                           marginTop: 6,
-                          marginLeft: 13,
+                          marginLeft: '30%',
                           height:'auto',
                           borderRadius:5,
                           marginBottom:2,
                           }}>
                         <Box sx={{
                           marginTop:2,
-                          marginLeft:2,
-                          textAlign:'left' 
+                          textAlign:'center'
                         }}>
-                          <Typography color="green" align="center" component="h1" variant="h5">
-                            Time
+                          <Typography sx={{
+                            fontWeight:'bold',
+                            color:'green',
+                            fontSize:30,
+                            align:'center',
+                            }}>
+                              {date.toLocaleTimeString()}
                           </Typography>
                         </Box>
-                        <Divider sx={{backgroundColor:"grey"}} />
+
                         <Box sx={{
                           marginTop:2,
-                          marginLeft:2,
-                          textAlign:'left' 
+                          textAlign:'center'
                         }}>
-                          <Typography color="green" align="center" component="h1" variant="h5">
-                             09 : 53 : 12
+                          <Typography sx={{
+                            fontWeight:'bold',
+                            color:'black',
+                            fontSize:16,
+                            align:'center',
+                            }}>
+                              {date.toLocaleDateString()}
                           </Typography>
                         </Box>
                         
                         <Box sx={{
-                         
-                          marginLeft:2,
+                          marginTop:8,
                           textAlign:'center' 
-                        }}> <Typography component="clock"  sx={{
+                        }}> 
+                        <Typography component="clock"  sx={{
                             fontWeight:'bold',
-                            color:'green',
-                            fontSize:200,
+                            color:'#4D2500',
+                            fontSize:100,
                             align:'center',
                             }}>
                              <BiAlarm />
-                          </Typography>
+                        </Typography>
                           
                         </Box>
                         <Box sx={{
-                          
-                          marginLeft:2,
-                           
+                           marginBottom:4,
                         }}>
-                            
-                             <Button
-                             
-                            paddingBottom="4.5"
-                            type="submit"
-                            Width="flex"
-                            align="top"
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}>
-                                Punch In
-                                 </Button>
-                          
-                         
+                        <Button
+                          type="submit"
+                          variant="outlined"
+                          sx={{ mt: 3, mb: 3, width:200, borderRadius:15,  color: 'black', borderColor: 'black',
+                          '&:hover': {
+                            backgroundColor: '#DCDCDC',
+                            color: 'balck',
+                            borderColor:'black'
+                        },   
+                        }}>
+                            Punch In
+                        </Button>
                         </Box>
                     </Card>
                 </Box>
