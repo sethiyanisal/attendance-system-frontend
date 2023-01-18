@@ -18,6 +18,7 @@ import AdminLeaveRequestList from './components/admin/AdminLeaveRequestList';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import Missing from './components/Missing';
+import AdminViewLeaveRequest from './components/admin/AdminViewLeaveRequest';
 
 const ROLES = {
   'User': 2080,
@@ -46,6 +47,7 @@ function App() {
               <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
               <Route path="/admin/timecard" element={<AdminTimeCard/>}></Route>
               <Route path="/admin/leaverequests" element={<AdminLeaveRequestList/>}></Route>
+              <Route path="/admin/leaverequests/viewleaverequests" element={<AdminViewLeaveRequest/>}></Route>
             </Route>
 
             <Route path="/*" element={<Missing />} />
