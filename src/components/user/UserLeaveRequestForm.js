@@ -5,25 +5,37 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+
 import Image from './../../images/logo.png';
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
+import { useNavigate } from 'react-router-dom';
 
 
 const UserLeaveRequestForm = () => {
 
 const { auth } = useAuthContext();
-const [userData, setUser] = useState();
-const [userFirstname, setFirstName] = useState();
-const [userLasttname, setLastName] = useState();
-const [userEmail, setEmail] = useState();
-const [userContactNum, setContactNum] = useState();
-const [userLeaveType, setLeaveType] = useState();
+const navigateTo = useNavigate();
 
-  const handleChange = (e) => {
-    setLeaveType(e.target.value);
-  };
+// const [userFirstname, setFirstName] = useState();
+// const [userLasttname, setLastName] = useState();
+// const [userEmail, setEmail] = useState();
+// const [userContactNum, setContactNum] = useState();
+
+const [userData, setUser] = useState();
+const [userLeaveType, setLeaveType] = useState();
+const [userDateFrom, setDateFrom] = useState();
+const [userDateTo, setDateTo] = useState();
+const [userSubject, setSubject] = useState();
+const [userLeaveStatus, setStatus] = useState("Pending");
+
+
 
 useEffect(() => {
     const userID = auth.user.id;
@@ -32,16 +44,41 @@ useEffect(() => {
         .getUserDetailsById(userID, token)
         .then((res) => {
           setUser(res.data.data);
-          setFirstName(res.data.data.firstName);
-          setLastName(res.data.data.lastName);
-          setEmail(res.data.data.email);
-          setContactNum(res.data.data.contactnum);
-          console.log()
         })
         .catch((error) => {
           console.log(error);
         });
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let leave = {
+        leavetype: userLeaveType,
+        dateFrom: userDateFrom,
+        dateTo: userDateTo,
+        subject: userSubject,
+        status: userLeaveStatus
+    };
+        
+   
+    try {
+        const token = auth.user.token;
+        leaveRequestService
+            .postLeaveRequest(token, leave)
+            .then((res) => {
+            console.log("Successfully added a leave request");
+            navigateTo("/user/leaverequests");
+            })
+            .catch((error) => {
+            console.log(error);
+            });
+        
+    } catch (err) {
+        console.log(err) ;
+    }
+}
+
     
 return (
     <>
@@ -88,7 +125,7 @@ return (
                 </Typography>
                 </Box>
 
-                <Box component="form" noValidate sx={{ mt: 3, ml:30, width: 1000, }}>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, ml:30, width: 1000, }}>
                     <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -138,35 +175,43 @@ return (
                             id="leave-type"
                             label="leave-type"
                             value={userLeaveType}
-                            onChange={handleChange}
+                            onChange={(e) => setLeaveType(e.target.value)}
                         >
-                            <MenuItem >Personal Leave</MenuItem>
-                            <MenuItem >Medical Leave</MenuItem>
-                            <MenuItem >Annual Leave</MenuItem>
+                            <MenuItem value="Personal" >Personal Leave</MenuItem>
+                            <MenuItem value="Medical">Medical Leave</MenuItem>
+                            <MenuItem value="Annual">Annual Leave</MenuItem>
                         </Select>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextField
-                            type="date"
-                            required
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
                             fullWidth
                             id="datefrom"
-                            label="From"
                             name="datefrom"
-                            defaultValue="2019-05-24"
+                            label="From"
+                            value={userDateFrom}
+                            onChange={(e) => {
+                            setDateFrom(e);
+                            }}
+                            renderInput={(params) => <TextField fullWidth {...params} />}
                         />
+                    </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                    <TextField
-                            type="date"
-                            required
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
                             fullWidth
                             id="dateto"
-                            label="To"
                             name="dateto"
-                            defaultValue="2019-05-24"
+                            label="To"
+                            value={userDateTo}
+                            onChange={(e) => {
+                            setDateTo(e);
+                            }}
+                            renderInput={(params) => <TextField fullWidth {...params} />}
                         />
+                    </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12}>
                     <TextField
@@ -176,6 +221,8 @@ return (
                             InputProps={{
                                 inputComponent: TextareaAutosize
                             }}
+                            value={userSubject}
+                            onChange={(e) => setSubject(e.target.value)}
                         />
                     </Grid>
                     </Grid>
