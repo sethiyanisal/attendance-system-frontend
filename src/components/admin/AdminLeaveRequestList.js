@@ -122,7 +122,7 @@ const AdminLeaveRequestList = () => {
                         </Box>
                     </Card>
                     <AdminLeaveRequestCard/>
-                    <AdminLeaveRequestCard/>
+                    
                       
             </Box>
           </Grid>

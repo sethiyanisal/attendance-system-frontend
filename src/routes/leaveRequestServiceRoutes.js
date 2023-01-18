@@ -20,10 +20,11 @@ const getUserDetailsById = (userID, token) => {
 
 const getAllLeaveRequests = (token) => {
   const headers = {
-    'Authorization' : 'Bearer' + token
+    'Authorization' : 'Bearer ' +token
   }
   return Axios.get("/user/viewallleaverequest",{headers:headers});
-}
+};
+
 
 const postLeaveRequest = (token, leave) => {
   const headers = {
