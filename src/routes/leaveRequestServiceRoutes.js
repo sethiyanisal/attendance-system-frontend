@@ -8,6 +8,15 @@ const getLeaveRequestsById = (userID, token) => {
   return Axios.get("/user/leaverequestsbyid/" +userID, {headers: headers});
 };
 
+const viewLeaveRequestById = (leaveID, token) =>{
+  const headers = {
+    // 'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' +token 
+  }
+  return Axios.get("/user/viewleaverequestsbyid/" +leaveID, {headers: headers});
+};
+
+
 const getUserDetailsById = (userID, token) => {
   const headers = {
     // 'Content-Type': 'application/json',
@@ -37,7 +46,8 @@ const leaveRequestService = {
     getLeaveRequestsById,
     getUserDetailsById,
     getAllLeaveRequests,
-    postLeaveRequest
+    postLeaveRequest,
+    viewLeaveRequestById
 };
 
 
