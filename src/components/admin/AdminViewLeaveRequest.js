@@ -21,7 +21,6 @@ const AdminViewLeaveRequest = () => {
     const {state} = useLocation()
     const [userData, setUser] = useState();
     const {location} = useLocation();
-    console.log(state);
     const navigateBack = () => {
         // 👇️ navigate back
         navigateTo('/admin/leaverequests');
@@ -65,7 +64,7 @@ const AdminViewLeaveRequest = () => {
                                 fullWidth
                                 id="firstName"
                                 label="First Name"
-                                // value={item?._id || ""}
+                                value={item?.postedBy.firstName || ""}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -75,7 +74,7 @@ const AdminViewLeaveRequest = () => {
                                 id="lastName"
                                 label="Last Name"
                                 name="lastName"
-                                // value={item?.lastName || ""}
+                                value={item?.postedBy.lastName || ""}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -85,7 +84,7 @@ const AdminViewLeaveRequest = () => {
                                 id="email"
                                 label="Email"
                                 name="email"
-                                // value={item?.email || ""}
+                                value={item?.postedBy.email || ""}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -95,22 +94,19 @@ const AdminViewLeaveRequest = () => {
                                 id="contactnum"
                                 label="Contact Number"
                                 name="contactnum"
-                                // value={item?.contactnum || ""}
+                                value={item?.postedBy.contactnum || ""}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                             <FormControl fullWidth>
-                            <InputLabel id="leave-type">Leave Type</InputLabel>
+                            <InputLabel id="leave-type"></InputLabel>
                             <TextField
-                                labelId="leave-type"
+                                
                                 id="leave-type"
                                 label="leave-type"
                                 value={item?.leavetype || ""}
                                 />
-                                    
-                                    
-                                
-                                    
+                                  
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -120,7 +116,7 @@ const AdminViewLeaveRequest = () => {
                                     id="datefrom"
                                     name="datefrom"
                                     label="From"
-                                    // value={userDateFrom}
+                                    value={item?.dateFrom || ""}
                                     
                                     renderInput={(params) => <TextField fullWidth {...params} />}
                                 />
@@ -133,7 +129,7 @@ const AdminViewLeaveRequest = () => {
                                     id="dateto"
                                     name="dateto"
                                     label="To"
-                                    // value={userDateTo}
+                                    value={item?.dateTo || ""}
                                     
                                     renderInput={(params) => <TextField fullWidth {...params} />}
                                 />
@@ -147,7 +143,7 @@ const AdminViewLeaveRequest = () => {
                                     InputProps={{
                                         inputComponent: TextareaAutosize
                                     }}
-                                    // value={userSubject}
+                                    value={item?.subject || ""}
                                     
                                 />
                             </Grid>

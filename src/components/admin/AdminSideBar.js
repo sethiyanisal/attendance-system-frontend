@@ -6,12 +6,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
-import { ArrowBackIosNewOutlined, CardGiftcardOutlined, Dashboard, DashboardCustomizeOutlined, ExitToAppOutlined, LoginOutlined, PunchClockOutlined, PunchClockRounded, TimeToLeaveOutlined, TimeToLeaveRounded, Watch } from '@mui/icons-material';
+import { ArrowBackIosNewOutlined, NetworkLocked, Dashboard, DashboardCustomizeOutlined, ExitToAppOutlined, LoginOutlined, PunchClockOutlined, PunchClockRounded, TimeToLeaveOutlined, TimeToLeaveRounded, Watch } from '@mui/icons-material';
 import Image from './../../images/logo.png';
 import { Grid } from '@mui/material';
 import { useLogout } from '../../hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
-
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 
 const AdminSideBar = () => {
     const navigateTo = useNavigate();
@@ -45,12 +45,12 @@ const handleClick = () => {
         </ListItem>
         <ListItem divider>
         <a className="c-menu-item" href="/admin/timecard">
-            <CardGiftcardOutlined/>Time Cards
+            <PunchClockOutlined/>Time Cards
             </a>
         </ListItem>
         <ListItem divider>
         <a className="c-menu-item" href="/admin/leaverequests">
-            <TimeToLeaveOutlined/>Leave Requests
+            <NetworkLocked/>Leave Requests
             </a>    
         </ListItem>  
            

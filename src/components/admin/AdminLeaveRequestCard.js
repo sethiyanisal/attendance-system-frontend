@@ -6,13 +6,12 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
+
+
+
 const AdminLeaveRequestCard = () => {
   const { auth } = useAuthContext();
   const [leaveData, setLeave] = useState();
-  const navigate = useNavigate();
-  const navigateview = useNavigate();
-  
-
 
   useEffect(() => {
     
@@ -29,14 +28,11 @@ const AdminLeaveRequestCard = () => {
 
         
   }, []);
-  
 
   return (
     <>
     {leaveData ? (
       leaveData.map((item, index) =>{
-        
-        
         return(                
  <tr key={index}>
  <td> {index+1}</td>

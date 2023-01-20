@@ -13,7 +13,7 @@ const viewLeaveRequestById = (leaveID, token) =>{
     // 'Content-Type': 'application/json',
     'Authorization': 'Bearer ' +token 
   }
-  return Axios.get("/user/viewleaverequestsbyid/" +leaveID, {headers: headers});
+  return Axios.get("/user/viewleaverequestbyid/" +leaveID, {headers: headers});
 };
 
 

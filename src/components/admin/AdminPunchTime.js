@@ -35,7 +35,7 @@ const AdminPunchTime = () => {
                 
       </header>
       <div className="l-page">
-        <div className="container-fluid">
+        <div align="center" className="container-fluid">
         <Card sx={{
                             width: 500,
                             height:'auto',
