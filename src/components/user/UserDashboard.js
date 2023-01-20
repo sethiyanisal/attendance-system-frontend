@@ -27,86 +27,67 @@ const theme = createTheme({
 const UserDashboard = () => {
   return (
     <>
-        <Grid container sx={{ height:1 }}>
+        
           <UserSideBar/>
-          <Grid item xs={10} sx={{ height:'full' }}>
-            <Box sx={{
-                  width:'auto',
-                  flexDirection: 'column',
-                  height:1,
-              }}>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems:'flex-start'
-                  }}
-                  >
-                  <Typography component="h1" variant="h5" sx={{
-                    fontWeight:'bold',
-                    paddingTop:6,
-                    paddingLeft: 4,
-                    paddingBottom:4.5,
-                    }}>
-                      Dashboard
-                  </Typography>
-                </Box>
-                <Divider sx={{backgroundColor:"grey"}} />
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  flexWrap:'wrap',
-                }}>
+          <div className="l-app__body">
+            <header className="l-header">
+              <div className="l-header__wrapper">
+                  <h4 className="heading-4">Dashboard</h4>
+              </div>
+              
+            </header>
+            <div className="l-page">
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-24">
                     <Card sx={{
-                          display: 'flex',
-                          width: 500,
-                          marginTop: 3,
-                          marginLeft: 13,
-                          height: 250,
-                          borderRadius:5,
-                          textAlign:'left'
+                            width: '100%',
+                            display: 'flex',
+                            height: 250,
+                            borderRadius:5,
+                            textAlign:'left'
+                            }}>
+                          <Box sx={{
+                            marginTop:2,
+                            marginLeft:2,
                           }}>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:2,
-                        }}>
-                          <Typography component="h1" variant="h3">
-                              Hello Chandler !
-                          </Typography>
-                          <Typography component="h6" variant="h6" style={{
-                            color: 'green',
-                            fontSize: 16,
-                        }}>
-                              This is your dashboard today.
-                          </Typography>
+                            <Typography component="h1" variant="h3">
+                                Hello Chandler !
+                            </Typography>
+                            <Typography component="h6" variant="h6" style={{
+                              color: 'green',
+                              fontSize: 16,
+                          }}>
+                                This is your dashboard today.
+                            </Typography>
+                          </Box>
+                          <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            margin:'auto',
+                            marginBottom:0,
+                          }}
+                        >
+                          <img src={Image} alt="logo" sx={{}} />
                         </Box>
-                        <Box
-                        sx={{
-                          width: 200,
-                          display: 'flex',
-                          flexDirection: 'column',
-                          margin:'auto',
-                          marginBottom:0,
-                        }}
-                      >
-                        <img src={Image} alt="logo" sx={{}} />
-                      </Box>
-                    </Card>
+                      </Card>
+                  </div>
+                  <div className="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-24">
                     <Card sx={{
-                          width: 500,
-                          marginTop: 3,
-                          marginLeft: 8,
+                          
                           height: 250,
                           borderRadius:5,
                           }}>
                         <Box sx={{
-                          marginTop:2,
-                          marginLeft:2,
+                           marginTop:2,
+                           marginLeft:2,
                           textAlign:'left' 
                         }}>
                         <ThemeProvider theme={theme}>
                           <Typography component="h1" variant="h5" sx={{
-                                                                        fontFamily: 'BlinkMacSystemFont',
-                                                                      }}>
+                          fontFamily: 'BlinkMacSystemFont',
+                          }}>
                               Overall Work Percentage(Weekly)
                           </Typography>
                         </ThemeProvider>
@@ -123,37 +104,38 @@ const UserDashboard = () => {
                           </Typography>
                         </Box>
                     </Card>
+                  </div>
+                  <div className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-24">
                     <Card sx={{
-                          width: 1065,
-                          marginTop: 6,
-                          marginLeft: 13,
-                          height:'auto',
-                          borderRadius:5,
-                          marginBottom:2,
+                            height:'auto',
+                            borderRadius:5,
+                            marginBottom:2,
+                            }}>
+                          <Box sx={{
+                            marginTop:2,
+                            marginLeft:2,
+                            textAlign:'left' 
                           }}>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:2,
-                          textAlign:'left' 
-                        }}>
-                          <ThemeProvider theme={theme}>
-                          <Typography component="h1" variant="h5" sx={{
-                                                                        fontFamily: 'Oxygen',
-                                                                      }}>
-                              Overall Work Percentage(Weekly)
-                          </Typography>
-                          </ThemeProvider>
-                        </Box>
-                        <Box sx={{
-                          margin:2,
-                        }}>
-                          <BarChart/>
-                        </Box>
-                    </Card>
-                </Box>
-            </Box>
-          </Grid>
-        </Grid>
+                            <ThemeProvider theme={theme}>
+                            <Typography component="h1" variant="h5" sx={{
+                                                                          fontFamily: 'Oxygen',
+                                                                        }}>
+                                Overall Work Percentage(Weekly)
+                            </Typography>
+                            </ThemeProvider>
+                          </Box>
+                          <Box sx={{
+                            margin:2,
+                          }}>
+                            <BarChart/>
+                          </Box>
+                      </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
         </>
   )
 }

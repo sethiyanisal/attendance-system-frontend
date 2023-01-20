@@ -15,83 +15,44 @@ import DatePick from './DatePick';
 const TimeCard = () => {
    
   return (
-        <Grid container sx={{ height:'auto' }}>
-          <UserSideBar/>
-          <Grid item xs={10} sx={{ height: 1 }}>
-            <Box sx={{
-                  width:'auto',
-                  flexDirection: 'column',
-                  height:1,
-              }}>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems:'flex-start'
-                  }}
-                  >
-                  <Typography component="h1" variant="h5" sx={{
-                    fontWeight:'bold',
-                    paddingTop:6,
-                    paddingLeft: 4,
-                    paddingBottom:4.5,
-                    }}>
-                    Time Card
-                  </Typography>
-                 
-                </Box>
-                <Divider sx={{backgroundColor:"grey"}} />
-                
-                        <Box sx={{
-                          float:'right',
-                          width:'100%',
-                          marginLeft:2,
-                          display: 'flex',
-                          flexDirection: 'row',
-                         
-                         
-                        }}>
-                          
-                <FormControl  
-                    sx={{
-                      width:'50%',
-                      fontWeight:'bold',
-                      paddingTop:8,
-                      paddingLeft: 7,
-                      paddingBottom:4.5,
-                      }}>
-                     <DatePick/>   
-                </FormControl>
-                 
-                 <Typography component="h1" variant="h5" sx={{
-                    fontWeight:'bold',
-                    paddingTop:6,
-                    paddingLeft: 52,
-                    paddingBottom:2,
-                    float:'right',
-                    }}>
-                    <Button
-                             paddingBottom="4.5"
-                             type="submit"
-                             Width="flex"
-                             float="right"
-                             variant="contained"
-                             sx={{ mt: 3, mb: 2,backgroundColor:"#FB5353" }}>
+    <>
+    <UserSideBar/>
+    <div className="l-app__body">
+      <header className="l-header">
+                <div className="l-header__wrapper">
+                    <h4 className="heading-4">Time Card</h4>
+                </div>
+      </header>
+      <div className="l-page ">
+      <div className="l-page-header__heading">
+                <div className="l-page__title-wrapper">
+                  <div className="body-base--medium">Tiem cards</div>
+                </div>
+                <div className="l-page__actions">
+                <button
+                          type="submit"
+                          className="pf-btn pf-btn-primary"
+                        >
                           Print PDF
-                    </Button> 
-                                  
-                    </Typography>
-           
-                        </Box>
-                        <Box sx={{    paddingBottom:'6',
-                          marginLeft:7,
-                          marginRight:7,
-                        }}>
-                          <PunchTable/>
-                        </Box>
-            </Box>
-           
-          </Grid>
-        </Grid>
+                        </button>
+                </div>
+        </div>
+        <div className='container-fluid'>
+        
+        <div className="l-table__container">
+          <div className='l-table-config'>
+          <FormControl>
+                  <DatePick/>   
+            </FormControl>
+          </div>
+          <div className="l-table__wrapper">
+            <PunchTable/>
+          </div>
+        </div>
+        </div>   
+        </div>
+    </div>
+   </> 
   )
 }
 

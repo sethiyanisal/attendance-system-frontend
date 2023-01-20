@@ -1,14 +1,14 @@
 import { Card, Divider, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react'
-import UserSideBar from './UserSideBar';
+import AdminSideBar from './AdminSideBar';
 import {Typography} from '@mui/material';
 import { BiAlarm } from "react-icons/bi";
 import Button from '@mui/material/Button';
 import {useEffect, useState } from 'react';
 
 
-const PunchTime = () => {
+const AdminPunchTime = () => {
 
   const [date, setDate] = useState(new Date());
 
@@ -26,7 +26,7 @@ const PunchTime = () => {
 
   return (
     <>
-    <UserSideBar/>
+    <AdminSideBar/>
     <div className="l-app__body">
       <header className="l-header">
                 <div className="l-header__wrapper">
@@ -108,4 +108,4 @@ const PunchTime = () => {
   )
 }
 
-export default PunchTime;
+export default AdminPunchTime;

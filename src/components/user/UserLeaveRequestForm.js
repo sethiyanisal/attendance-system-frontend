@@ -22,7 +22,9 @@ const UserLeaveRequestForm = () => {
 
 const { auth } = useAuthContext();
 const navigateTo = useNavigate();
-
+const navigateBack = () => {
+    // 👇️ navigate back
+    navigateTo('/user/leaverequests');};
 // const [userFirstname, setFirstName] = useState();
 // const [userLasttname, setLastName] = useState();
 // const [userEmail, setEmail] = useState();
@@ -82,167 +84,142 @@ useEffect(() => {
     
 return (
     <>
-    {[userData]?.map((item, index) => {
-        return(
-            <Box key={index} sx={{
-                width:1,
-                flexDirection: 'column',
-                paddingTop:2,
-            }}>
-                <Box
-                    sx={{
-                        width: 120,
-                        marginTop: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginBottom:0,
-            
-                    }}
-                    >
-                    <img src={Image} alt="logo" />
-                </Box>
-                <Divider variant='middle' sx={{backgroundColor:"grey"}} />
-                <Box sx={{
-                    width:100,
-                    flexDirection: 'row',
-                    paddingTop:2,
-                    justifyContent: 'flex-start'
-                }}>
-                    <ArrowBackIosNewRounded/>
-                </Box>
-                <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems:'flex-start',
-                marginLeft:30
-                }}
-                >
-                <Typography component="h1" variant="h5" sx={{
-                    paddingTop:3,
-                    paddingBottom:2,
-                    }}>
-                    Leave Requests
-                </Typography>
-                </Box>
+     <div className="l-app__body">
+        <header className="l-header">
+                   
+                    <div className="l-header__wrapper">
+                        <button onClick={navigateBack} className='pf-icon-btn pf-btn-secondary'><ArrowBackIosNewRounded/></button>
+                        <h4 className="heading-4">New Leave request</h4>
+                    </div>
+                    
+        </header>
+        <div className="l-page">
+            <div className="container">
+                    {[userData]?.map((item, index) => {
+                    return(
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{  width: 1000, }}>
+                                <Grid container spacing={4}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                    name="firstName"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    value={item?.firstName || ""}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    value={item?.lastName || ""}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email"
+                                    name="email"
+                                    value={item?.email || ""}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                    required
+                                    fullWidth
+                                    id="contactnum"
+                                    label="Contact Number"
+                                    name="contactnum"
+                                    value={item?.contactnum || ""}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                <FormControl fullWidth>
+                                <InputLabel id="leave-type">Leave Type</InputLabel>
+                                    <Select
+                                        labelId="leave-type"
+                                        id="leave-type"
+                                        label="leave-type"
+                                        value={userLeaveType}
+                                        onChange={(e) => setLeaveType(e.target.value)}
+                                    >
+                                        <MenuItem value="Personal" >Personal Leave</MenuItem>
+                                        <MenuItem value="Medical">Medical Leave</MenuItem>
+                                        <MenuItem value="Annual">Annual Leave</MenuItem>
+                                    </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        fullWidth
+                                        id="datefrom"
+                                        name="datefrom"
+                                        label="From"
+                                        value={userDateFrom}
+                                        onChange={(e) => {
+                                        setDateFrom(e);
+                                        }}
+                                        renderInput={(params) => <TextField fullWidth {...params} />}
+                                    />
+                                </LocalizationProvider>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        fullWidth
+                                        id="dateto"
+                                        name="dateto"
+                                        label="To"
+                                        value={userDateTo}
+                                        onChange={(e) => {
+                                        setDateTo(e);
+                                        }}
+                                        renderInput={(params) => <TextField fullWidth {...params} />}
+                                    />
+                                </LocalizationProvider>
+                                </Grid>
+                                <Grid item xs={12}>
+                                <TextField
+                                        fullWidth
+                                        multiline
+                                        label="Subject (reason)"
+                                        InputProps={{
+                                            inputComponent: TextareaAutosize
+                                        }}
+                                        value={userSubject}
+                                        onChange={(e) => setSubject(e.target.value)}
+                                    />
+                                </Grid>
+                                </Grid>
+                                <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10,  color: 'white', backgroundColor:'#1D1D1D', borderColor: 'black',
+                                '&:hover': {
+                                backgroundColor: '#393939',
+                                color: 'white',
+                                borderColor:'black'
+                                },   
+                                }}
+                                >
+                                Send Request
+                                </Button>
+                            </Box>
+                    )
+                })}
+        </div>
+        </div>
+        
 
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, ml:30, width: 1000, }}>
-                    <Grid container spacing={4}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                        name="firstName"
-                        required
-                        fullWidth
-                        id="firstName"
-                        label="First Name"
-                        value={item?.firstName || ""}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                        required
-                        fullWidth
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
-                        value={item?.lastName || ""}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email"
-                        name="email"
-                        value={item?.email || ""}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                        required
-                        fullWidth
-                        id="contactnum"
-                        label="Contact Number"
-                        name="contactnum"
-                        value={item?.contactnum || ""}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                    <FormControl fullWidth>
-                    <InputLabel id="leave-type">Leave Type</InputLabel>
-                        <Select
-                            labelId="leave-type"
-                            id="leave-type"
-                            label="leave-type"
-                            value={userLeaveType}
-                            onChange={(e) => setLeaveType(e.target.value)}
-                        >
-                            <MenuItem value="Personal" >Personal Leave</MenuItem>
-                            <MenuItem value="Medical">Medical Leave</MenuItem>
-                            <MenuItem value="Annual">Annual Leave</MenuItem>
-                        </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            fullWidth
-                            id="datefrom"
-                            name="datefrom"
-                            label="From"
-                            value={userDateFrom}
-                            onChange={(e) => {
-                            setDateFrom(e);
-                            }}
-                            renderInput={(params) => <TextField fullWidth {...params} />}
-                        />
-                    </LocalizationProvider>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            fullWidth
-                            id="dateto"
-                            name="dateto"
-                            label="To"
-                            value={userDateTo}
-                            onChange={(e) => {
-                            setDateTo(e);
-                            }}
-                            renderInput={(params) => <TextField fullWidth {...params} />}
-                        />
-                    </LocalizationProvider>
-                    </Grid>
-                    <Grid item xs={12}>
-                    <TextField
-                            fullWidth
-                            multiline
-                            label="Subject (reason)"
-                            InputProps={{
-                                inputComponent: TextareaAutosize
-                            }}
-                            value={userSubject}
-                            onChange={(e) => setSubject(e.target.value)}
-                        />
-                    </Grid>
-                    </Grid>
-                    <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10,  color: 'white', backgroundColor:'#1D1D1D', borderColor: 'black',
-                    '&:hover': {
-                    backgroundColor: '#393939',
-                    color: 'white',
-                    borderColor:'black'
-                    },   
-                    }}
-                    >
-                    Send Request
-                    </Button>
-                </Box>
-            </Box>
-        )
-    })}
+     </div>
+   
         
     </>
   )

@@ -23,51 +23,38 @@ const rows = [
 export default function AdminPunchTable() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-          
-            <TableCell align="center"><b>ID</b></TableCell>
-            <TableCell align="center" ><b>Name</b></TableCell>
-            <TableCell align="center"><b>Date</b></TableCell>
-            <TableCell align="center"><b>Description</b></TableCell>
-            <TableCell align="center"><b>Total Hours</b></TableCell>
-            <TableCell align="center"><b> </b></TableCell>    
-           
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
+      <table className="l-raw-table">
+        <thead>
+          <tr>
+            <th>Employee Id</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Total Hours</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        {rows.map((row) => (
+            <tr
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-             
-              <TableCell align="center" >{row.id}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.date}</TableCell>
-              <TableCell align="center">{row.description}</TableCell>
-              <TableCell align="center">{row.hours}</TableCell>
-              <TableCell align="center"> 
-              <Button
-                  href='/user/leaverequests/'
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 5, mb: 4, mr: 6, width:75, borderRadius:10,  color: 'white', backgroundColor:'Black', borderColor: 'black',
-                    '&:hover': {
-                      backgroundColor: '#FF7D7D',
-                      color: 'white',
-                      borderColor:'black'
-                  },   
-                  }}
-                  >
-                    View
-                  </Button>
-                </TableCell>
-            </TableRow>
+              <td>
+                {row.id}
+              </td>
+              <td >{row.name}</td>
+              <td >{row.date}</td>
+              <td >{row.description}</td>
+              <td >{row.hours}</td>
+              <td > <button className="pf-btn pf-btn-link " type="submit">
+                View
+              </button>
+              </td>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </TableContainer>
   );
 }
