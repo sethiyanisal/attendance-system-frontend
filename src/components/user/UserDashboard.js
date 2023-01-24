@@ -5,6 +5,9 @@ import UserSideBar from './UserSideBar';
 import {Typography} from '@mui/material';
 import Image from '../../images/dash1.jpg';
 import BarChart from './BarChart';
+import { useState, useEffect } from 'react';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
  
 const theme = createTheme({
   typography: {
@@ -25,6 +28,25 @@ const theme = createTheme({
 
 
 const UserDashboard = () => {
+
+const { auth } = useAuthContext();
+
+const [userData, setUser] = useState();
+
+useEffect(() => {
+    const userID = auth.user.id;
+    const token = auth.user.token;
+      leaveRequestService
+        .getUserDetailsById(userID, token)
+        .then((res) => {
+          setUser(res.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, []);
+
+
   return (
     <>
         <Grid container sx={{ height:1 }}>
@@ -56,7 +78,9 @@ const UserDashboard = () => {
                   flexDirection: 'row',
                   flexWrap:'wrap',
                 }}>
-                    <Card sx={{
+                {[userData]?.map((item, index) => {
+                  return(
+                        <Card key={index} sx={{
                           display: 'flex',
                           width: 500,
                           marginTop: 3,
@@ -70,7 +94,8 @@ const UserDashboard = () => {
                           marginLeft:2,
                         }}>
                           <Typography component="h1" variant="h3">
-                              Hello Chandler !
+                              Hello <br></br>
+                              {item?.firstName} !
                           </Typography>
                           <Typography component="h6" variant="h6" style={{
                             color: 'green',
@@ -91,6 +116,8 @@ const UserDashboard = () => {
                         <img src={Image} alt="logo" sx={{}} />
                       </Box>
                     </Card>
+                    )
+                    })}
                     <Card sx={{
                           width: 500,
                           marginTop: 3,
