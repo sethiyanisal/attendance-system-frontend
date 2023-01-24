@@ -49,7 +49,7 @@ useEffect(() => {
 
   return (
     <>
-        <Grid container sx={{ height:1 }}>
+        
           <UserSideBar/>
           <Grid item xs={10} sx={{ height:'full' }}>
             <Box sx={{
@@ -119,21 +119,19 @@ useEffect(() => {
                     )
                     })}
                     <Card sx={{
-                          width: 500,
-                          marginTop: 3,
-                          marginLeft: 8,
+                          
                           height: 250,
                           borderRadius:5,
                           }}>
                         <Box sx={{
-                          marginTop:2,
-                          marginLeft:2,
+                           marginTop:2,
+                           marginLeft:2,
                           textAlign:'left' 
                         }}>
                         <ThemeProvider theme={theme}>
                           <Typography component="h1" variant="h5" sx={{
-                                                                        fontFamily: 'BlinkMacSystemFont',
-                                                                      }}>
+                          fontFamily: 'BlinkMacSystemFont',
+                          }}>
                               Overall Work Percentage(Weekly)
                           </Typography>
                         </ThemeProvider>
@@ -150,37 +148,38 @@ useEffect(() => {
                           </Typography>
                         </Box>
                     </Card>
+                  </div>
+                  <div className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-24">
                     <Card sx={{
-                          width: 1065,
-                          marginTop: 6,
-                          marginLeft: 13,
-                          height:'auto',
-                          borderRadius:5,
-                          marginBottom:2,
+                            height:'auto',
+                            borderRadius:5,
+                            marginBottom:2,
+                            }}>
+                          <Box sx={{
+                            marginTop:2,
+                            marginLeft:2,
+                            textAlign:'left' 
                           }}>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:2,
-                          textAlign:'left' 
-                        }}>
-                          <ThemeProvider theme={theme}>
-                          <Typography component="h1" variant="h5" sx={{
-                                                                        fontFamily: 'Oxygen',
-                                                                      }}>
-                              Overall Work Percentage(Weekly)
-                          </Typography>
-                          </ThemeProvider>
-                        </Box>
-                        <Box sx={{
-                          margin:2,
-                        }}>
-                          <BarChart/>
-                        </Box>
-                    </Card>
-                </Box>
-            </Box>
-          </Grid>
-        </Grid>
+                            <ThemeProvider theme={theme}>
+                            <Typography component="h1" variant="h5" sx={{
+                                                                          fontFamily: 'Oxygen',
+                                                                        }}>
+                                Overall Work Percentage(Weekly)
+                            </Typography>
+                            </ThemeProvider>
+                          </Box>
+                          <Box sx={{
+                            margin:2,
+                          }}>
+                            <BarChart/>
+                          </Box>
+                      </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
         </>
   )
 }

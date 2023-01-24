@@ -6,168 +6,186 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Image from './../../images/logo.png';
-
-
+import { useAuthContext } from '../../hooks/useAuthContext';
+import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AdminViewLeaveRequest = () => {
-   
-  
-    
+    const navigateTo = useNavigate();
+    const { auth } = useAuthContext();
+    const [leaveData, setLeave] = useState();
+    const {state} = useLocation()
+    const [userData, setUser] = useState();
+    const {location} = useLocation();
+    const navigateBack = () => {
+        // 👇️ navigate back
+        navigateTo('/admin/leaverequests');
+      };
+    useEffect(() => {
+        const leaveID = state.id;
+        const token = auth.user.token;
+          leaveRequestService
+            .viewLeaveRequestById(leaveID,token)
+            .then((res) => {
+                setLeave(res.data.data);
+              console.log(res.data)
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      }, []);
   return (
     <>
-        <Box sx={{
-                    width:1,
-                    flexDirection: 'column',
-                    paddingTop:2,
-                }}>
-                <Box
-                    sx={{
-                        width: 120,
-                        marginTop: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginBottom:0,
-            
-                    }}
-                    >
-                    <img src={Image} alt="logo" />
-                </Box>
-                <Divider variant='middle' sx={{backgroundColor:"grey"}} />
-                <Box sx={{
-                    width:100,
-                    flexDirection: 'row',
-                    paddingTop:2,
-                    justifyContent: 'flex-start'
-                }}>
-                    <ArrowBackIosNewRounded/>
-                </Box>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems:'flex-start',
-                  marginLeft:30
-                  }}
-                  >
-                  <Typography component="h1" variant="h5" sx={{
-                    paddingTop:3,
-                    paddingBottom:2,
-                    }}>
-                      Leave Requests
-                  </Typography>
-                </Box>
+        
+    <div className="l-app__body">
+    <header className="l-header">
+               
+                <div className="l-header__wrapper">
+                <button onClick={navigateBack} className="pf-icon-btn pf-btn-secondary"  ><ArrowBackIosNewRounded/>
+                </button>
+                    <h4 className="heading-4">Leave request</h4>
+                </div>
+                
+    </header>
+    <div className="l-page">
+        <div className="container">
+                {[leaveData]?.map((item, index) => {
+                return(
+                    <Box component="form"  sx={{  width: 1000, }}>
+                            <Grid container spacing={4}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                name="firstName"
+                                required
+                                fullWidth
+                                id="firstName"
+                                label="First Name"
+                                value={item?.postedBy.firstName || ""}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Last Name"
+                                name="lastName"
+                                value={item?.postedBy.lastName || ""}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email"
+                                name="email"
+                                value={item?.postedBy.email || ""}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="contactnum"
+                                label="Contact Number"
+                                name="contactnum"
+                                value={item?.postedBy.contactnum || ""}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                            <FormControl fullWidth>
+                            <InputLabel id="leave-type"></InputLabel>
+                            <TextField
+                                
+                                id="leave-type"
+                                label="leave-type"
+                                value={item?.leavetype || ""}
+                                />
+                                  
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker
+                                    fullWidth
+                                    id="datefrom"
+                                    name="datefrom"
+                                    label="From"
+                                    value={item?.dateFrom || ""}
+                                    
+                                    renderInput={(params) => <TextField fullWidth {...params} />}
+                                />
+                            </LocalizationProvider>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker
+                                    fullWidth
+                                    id="dateto"
+                                    name="dateto"
+                                    label="To"
+                                    value={item?.dateTo || ""}
+                                    
+                                    renderInput={(params) => <TextField fullWidth {...params} />}
+                                />
+                            </LocalizationProvider>
+                            </Grid>
+                            <Grid item xs={12}>
+                            <TextField
+                                    fullWidth
+                                    multiline
+                                    label="Subject (reason)"
+                                    InputProps={{
+                                        inputComponent: TextareaAutosize
+                                    }}
+                                    value={item?.subject || ""}
+                                    
+                                />
+                            </Grid>
+                            </Grid>
+                            <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10, marginRight:'2px', color: 'white', backgroundColor:'green', borderColor: 'black',
+                            '&:hover': {
+                            backgroundColor: '#393939',
+                            color: 'white',
+                            borderColor:'black'
+                            },   
+                            }}
+                            >
+                           Accept
+                            </Button>
+                            <Button
+                            
+                            type="submit"
+                            variant="contained"
+                            sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10, marginLeft:'2px', color: 'white', backgroundColor:'red', borderColor: 'black',
+                            '&:hover': {
+                            backgroundColor: '#393939',
+                            color: 'white',
+                            borderColor:'black'
+                            },   
+                            }}
+                            >
+                            Reject
+                            </Button>
+                        </Box>
+                )
+            })}
+    </div>
+    </div>
+    
 
-                <Box component="form" noValidate sx={{ mt: 3, ml:30, width: 1000, }}>
-                <Grid container spacing={4}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                    value="name"
-                    autoComplete="given-name"
-                    name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                    value="name"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    value="email"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    value="contact"
-                    required
-                    fullWidth
-                    id="contactnum"
-                    label="Contact Number"
-                    name="contactnum"
-                    autoComplete="contactnum"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                <FormControl fullWidth>
-                <InputLabel id="leave-type"></InputLabel>
-                    <TextField
-                        value="type"
-                        labelId="leave-type"
-                        id="leave-type"
-                        label="leave-type"
-                    />
-                       
-                    
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        value="2019-05-24"
-                        type="date"
-                        required
-                        fullWidth
-                        id="datefrom"
-                        label="From"
-                        name="datefrom"
-                        
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                        value="2019-05-24"
-                        type="date"
-                        required
-                        fullWidth
-                        id="dateto"
-                        label="To"
-                        name="dateto"
-                      
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                <TextField
-                        value="subject"
-                        fullWidth
-                        multiline
-                        label="Subject (reason)"
-                        InputProps={{
-                            inputComponent: TextareaAutosize
-                        }}
-                    />
-                </Grid>
-                </Grid>
-                <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10,  color: 'white', backgroundColor:'#1D1D1D', borderColor: 'black',
-                '&:hover': {
-                backgroundColor: '#393939',
-                color: 'white',
-                borderColor:'black'
-                },   
-                }}
-                >
-                Accept Leave
-                </Button>
-            </Box>
-        </Box>
-    </>
+ </div>
+
+    
+</>
   )
 }
 

@@ -1,4 +1,5 @@
 import './App.css';
+import './styles.css';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -19,6 +20,7 @@ import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import Missing from './components/Missing';
 import AdminViewLeaveRequest from './components/admin/AdminViewLeaveRequest';
+import AdminPunchTime from './components/admin/AdminPunchTime';
 
 const ROLES = {
   'User': 2080,
@@ -46,6 +48,7 @@ function App() {
               <Route path="/user/leaverequests/leaverequestform" element={<UserLeaveRequestForm/>}></Route>
               <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
               <Route path="/admin/timecard" element={<AdminTimeCard/>}></Route>
+              <Route path="/admin/punchtime" element={<AdminPunchTime/>}></Route>
               <Route path="/admin/leaverequests" element={<AdminLeaveRequestList/>}></Route>
               <Route path="/admin/leaverequests/viewleaverequests" element={<AdminViewLeaveRequest/>}></Route>
             </Route>

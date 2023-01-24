@@ -11,124 +11,49 @@ const UserLeaveRequestList = () => {
 
   return (
     <>
-      <Box sx={{
-      }}>
-        <Grid container sx={{ height:'full' }}>
-          <UserSideBar/>
-          <Grid item xs={10} sx={{ height: 1, mb:2}}>
-            <Box sx={{
-                  width:1,
-                  flexDirection: 'column',
-                  height:1,
-              }}>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems:'flex-start'
-                  }}
-                  >
-                  <Typography component="h1" variant="h5" sx={{
-                    fontWeight:'bold',
-                    paddingTop:6,
-                    paddingLeft: 4,
-                    paddingBottom:4.5,
-                    }}>
-                      Leave Requests
-                  </Typography>
-                </Box>
-                <Divider sx={{backgroundColor:"grey"}} />
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  flexWrap:'wrap',
-                }}>
-                </Box>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'row-reverse',
-                  flexWrap:'wrap',
-                }}>
-                  <Button
+    <UserSideBar/>
+    <div className="l-app__body">
+      <header className="l-header">
+                <div className="l-header__wrapper">
+                    <h4 className="heading-4">Leave Requests</h4>
+                </div>
+                
+      </header>
+      <div className="l-page">
+        <div className="l-page-header__heading">
+          <div className="l-page__title-wrapper">
+            <div className="body-base--medium">Leave request</div>
+          </div>
+          <div className="l-page__actions">
+          <a
                   href='/user/leaverequests/leaverequestform'
                     type="submit"
-                    variant="contained"
-                    sx={{ mt: 5, mb: 4, mr: 15, width:200, borderRadius:10,  color: 'white', backgroundColor:'#FB5353', borderColor: 'black',
-                    '&:hover': {
-                      backgroundColor: '#FF7D7D',
-                      color: 'white',
-                      borderColor:'black'
-                  },   
-                  }}
+                    className="pf-btn pf-btn-primary"
                   >
                     Request Leave
-                  </Button>
-                </Box>
-                
-                <Card sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          width: 1100,
-                          marginTop: 6,
-                          marginLeft: 8,
-                          height:'auto',
-                          marginBottom:2,
-                          backgroundColor:'#BDBDBD'
-                          }}>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:2,
-                          marginBottom:2,
-                          textAlign:'left' 
-                        }}>
-                          <Typography component="h1" variant="h5" style={{
-                            fontSize: 16,
-                        }}>
-                             Leave ID
-                          </Typography>
-                        </Box>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:8,
-                          marginBottom:2,
-                          textAlign:'left' 
-                        }}>
-                          <Typography component="h1" variant="h5" style={{
-                            fontSize: 16,
-                        }}>
-                             Type
-                          </Typography>
-                        </Box>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:24,
-                          marginBottom:2,
-                          textAlign:'left' 
-                        }}>
-                          <Typography component="h1" variant="h5" style={{
-                            fontSize: 16,
-                        }}>
-                             Subject
-                          </Typography>
-                        </Box>
-                        <Box sx={{
-                          marginTop:2,
-                          marginLeft:30,
-                          marginBottom:2,
-                          textAlign:'left' 
-                        }}>
-                          <Typography component="h1" variant="h5" style={{
-                            fontSize: 16,
-                        }}>
-                             Status
-                          </Typography>
-                        </Box>
-                    </Card>
+                  </a>
+          </div>
+      </div>
+          <div className="container-fluid">
+            <div className="l-table__container">
+              <div className="l-table__wrapper">
+                <table className="l-raw-table">
+                    <thead>
+                      <tr>
+                        <th>Leave ID</th>
+                        <th>Type</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
                     <UserLeaveRequestCard/>
-                      
-            </Box>
-          </Grid>
-        </Grid>
-        </Box>
+                </table>
+              </div>
+            </div>      
+          </div>
+      </div>
+    </div>
     </>
   )
 }

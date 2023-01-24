@@ -23,36 +23,33 @@ const rows = [
 export default function PunchTable() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-          
-            <TableCell>Day</TableCell>
-            <TableCell align="center" ><b>Date</b></TableCell>
-            <TableCell align="center"><b>In</b></TableCell>
-            <TableCell align="center"><b>Out</b></TableCell>
-            <TableCell align="center"><b>Total Hours</b></TableCell>
-                  
-           
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
+      <table className="l-raw-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Date</th>
+            <th>In</th>
+            <th>Out</th>
+            <th>Total Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+        {rows.map((row) => (
+            <tr
               key={row.day}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <td>
                 {row.day}
-              </TableCell>
-              <TableCell align="center" >{row.date}</TableCell>
-              <TableCell align="center">{row.In}</TableCell>
-              <TableCell align="center">{row.Out}</TableCell>
-              <TableCell align="center">{row.hours}</TableCell>
-            </TableRow>
+              </td>
+              <td >{row.date}</td>
+              <td >{row.In}</td>
+              <td >{row.Out}</td>
+              <td >{row.hours}</td>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </TableContainer>
   );
 }

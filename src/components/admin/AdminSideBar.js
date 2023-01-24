@@ -6,78 +6,67 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
-import { Dashboard, ExitToAppOutlined, PunchClockRounded, Watch } from '@mui/icons-material';
+import { ArrowBackIosNewOutlined, NetworkLocked, Dashboard, DashboardCustomizeOutlined, ExitToAppOutlined, LoginOutlined, PunchClockOutlined, PunchClockRounded, TimeToLeaveOutlined, TimeToLeaveRounded, Watch } from '@mui/icons-material';
 import Image from './../../images/logo.png';
 import { Grid } from '@mui/material';
-
+import { useLogout } from '../../hooks/useLogout';
+import { useNavigate } from 'react-router-dom';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 
 const AdminSideBar = () => {
+    const navigateTo = useNavigate();
+const { logout } = useLogout();
+
+const handleClick = () => {
+    
+    try {
+        const response = logout();
+        navigateTo("/");
+    } catch (err) {
+    }
+}
   return (
-        <Grid item xs={2} sx={{ height: 'full' }}>
-            <Box sx={{
-                    width:1,
-                    flexDirection: 'column',
-                    borderRight:1,
-                    height:1,
-                }}>
-
-                <Box sx={{
-                    width:1,
-                    flexDirection: 'column',
-                    paddingTop:2,
-                }}>
-
-                    <Box
-                    sx={{
-                        width: 100,
-                        marginTop: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        margin:'auto',
-                        marginBottom:0,
-            
-                    }}
-                    >
-                    <img src={Image} alt="logo" />
-                    </Box>
-                    <Divider variant="middle" sx={{backgroundColor:"grey"}} />
-                    <List>
-                        <ListItem divider>
-                        <ListItemButton href="/admin/dashboard">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <Dashboard/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Dashboard" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                        <ListItemButton href="/user/punchtime">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <PunchClockRounded/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Punch Time" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                        <ListItemButton href="/admin/timecard">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <Watch/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Time Cards" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                        <ListItemButton href="/admin/leaverequests">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <ExitToAppOutlined/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Leave Requests" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </Box>
-            </Box>
-        </Grid>
+    <div className="l-side-nav">
+    <div className="l-side-nav__header">
+    <img className="l-side-nav__logo" src={Image} alt="logo" />
+    </div>
+    <div className="l-side-nav__content">
+        <div className="l-side-nav__nav-items">
+        <List>
+        <ListItem divider>
+            <a className="c-menu-item" href="/admin/dashboard">
+                <DashboardCustomizeOutlined/> Dashboard
+            </a>
+        </ListItem> 
+        <ListItem divider>
+        <a className="c-menu-item" href="/admin/punchtime">
+            <PunchClockRounded/>Punch Time
+            </a>
+        </ListItem>
+        <ListItem divider>
+        <a className="c-menu-item" href="/admin/timecard">
+            <PunchClockOutlined/>Time Cards
+            </a>
+        </ListItem>
+        <ListItem divider>
+        <a className="c-menu-item" href="/admin/leaverequests">
+            <NetworkLocked/>Leave Requests
+            </a>    
+        </ListItem>  
+           
+        
+        </List>
+        </div>
+        
+        <List>
+                <div className="c-menu-item" onClick={handleClick}>
+                <ListItem divider> 
+                <LoginOutlined/>Logout
+                </ListItem>
+                </div>
+        </List>
+    </div>
+</div>
   )
 }
 
