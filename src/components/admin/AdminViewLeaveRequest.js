@@ -21,6 +21,7 @@ const AdminViewLeaveRequest = () => {
     const {state} = useLocation()
     const [userData, setUser] = useState();
     const {location} = useLocation();
+    const [userLeaveStatus, setStatus] = useState();
     const navigateBack = () => {
         // 👇️ navigate back
         navigateTo('/admin/leaverequests');
@@ -38,6 +39,33 @@ const AdminViewLeaveRequest = () => {
               console.log(error);
             });
       }, []);
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        let leavestatus = {
+            status: userLeaveStatus
+        };
+
+        try {
+            const leaveID = state.id;
+            const token = auth.user.token;
+            leaveRequestService
+                .editLeaveRequestById(leaveID,token, leavestatus)
+                .then((req ,res) => {
+                console.log("Updated Status Successfully");
+                navigateTo("/admin/leaverequests");
+                })
+                .catch((error) => {
+                console.log(error);
+                });
+            
+        } catch (err) {
+            console.log(err) ;
+        }
+    }
+    
+
   return (
     <>
         
@@ -55,7 +83,7 @@ const AdminViewLeaveRequest = () => {
         <div className="container">
                 {[leaveData]?.map((item, index) => {
                 return(
-                    <Box component="form"  sx={{  width: 1000, }}>
+                    <Box key={index} component="form" noValidate onSubmit={handleSubmit} sx={{  width: 1000, }}>
                             <Grid container spacing={4}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -110,30 +138,28 @@ const AdminViewLeaveRequest = () => {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker
-                                    fullWidth
-                                    id="datefrom"
-                                    name="datefrom"
-                                    label="From"
-                                    value={item?.dateFrom || ""}
-                                    
-                                    renderInput={(params) => <TextField fullWidth {...params} />}
+                            <InputLabel id="date-from"></InputLabel>
+                            <TextField
+                                
+                                fullWidth
+                                id="datefrom"
+                                name="datefrom"
+                                label="From"
+                                value={item?.dateFrom || ""}
                                 />
-                            </LocalizationProvider>
+                            
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker
-                                    fullWidth
+                            <InputLabel id="date-to"></InputLabel>
+                            <TextField
+                                
+                                fullWidth
                                     id="dateto"
                                     name="dateto"
                                     label="To"
                                     value={item?.dateTo || ""}
-                                    
-                                    renderInput={(params) => <TextField fullWidth {...params} />}
                                 />
-                            </LocalizationProvider>
+                           
                             </Grid>
                             <Grid item xs={12}>
                             <TextField
@@ -149,6 +175,8 @@ const AdminViewLeaveRequest = () => {
                             </Grid>
                             </Grid>
                             <Button
+                            value="Accepted"
+                            onClick={(e) => setStatus(e.target.value)}
                             type="submit"
                             variant="contained"
                             sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10, marginRight:'2px', color: 'white', backgroundColor:'green', borderColor: 'black',
@@ -162,7 +190,8 @@ const AdminViewLeaveRequest = () => {
                            Accept
                             </Button>
                             <Button
-                            
+                             value="Declined"
+                             onClick={(e) => setStatus(e.target.value)}
                             type="submit"
                             variant="contained"
                             sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10, marginLeft:'2px', color: 'white', backgroundColor:'red', borderColor: 'black',

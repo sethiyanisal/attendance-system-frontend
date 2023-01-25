@@ -32,10 +32,10 @@ const AdminLeaveRequestList = () => {
                 <table className="l-raw-table">
                     <thead>
                       <tr>
-                        <th>Leave ID</th>
+                        <th>Leave_ID</th>
                         <th>Name</th>
-                        <th>Leave Type</th>
-                        <th>Subject</th>
+                        <th>Leave_Type</th>
+                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
