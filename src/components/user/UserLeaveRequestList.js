@@ -8,24 +8,6 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
 
 const UserLeaveRequestList = () => {
-  
-
-  // const { auth } = useAuthContext();
-  // const [leaveData, setLeave] = useState();
-
-  // useEffect(() => {
-  //   const userID = auth.user.id;
-  //   const token = auth.user.token;
-  //     leaveRequestService
-  //       .getLeaveRequestsById(userID, token)
-  //       .then((res) => {
-  //         setLeave(res.data.data);
-  //         console.log(res.data)
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  // }, []);
 
   return (
     <>
