@@ -35,7 +35,7 @@ const AdminLeaveRequestCard = () => {
       leaveData.map((item, index) =>{
         return(                
  <tr key={index}>
- <td> {index+1}</td>
+ <td>{index+1}</td>
  <td>{item?.postedBy.firstName}</td>
  <td>{item.leavetype}</td>
  <td>{item.subject}</td>
