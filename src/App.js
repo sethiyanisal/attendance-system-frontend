@@ -51,6 +51,7 @@ function App() {
               <Route path="/admin/punchtime" element={<AdminPunchTime/>}></Route>
               <Route path="/admin/leaverequests" element={<AdminLeaveRequestList/>}></Route>
               <Route path="/admin/leaverequests/viewleaverequests" element={<AdminViewLeaveRequest/>}></Route>
+             
             </Route>
 
             <Route path="/*" element={<Missing />} />
