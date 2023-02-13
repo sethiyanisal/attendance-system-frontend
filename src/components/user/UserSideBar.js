@@ -68,7 +68,7 @@ const handleClick = () => {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton href="/user/leaverequests">
+          <ListItemButton href="/user/leaverequest">
             <ListItemIcon>
               <NetworkLocked /> 
             </ListItemIcon>

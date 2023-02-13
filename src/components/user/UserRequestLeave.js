@@ -19,6 +19,9 @@ const UserRequestLeave = () => {
 
 const { auth } = useAuthContext();
 const navigateTo = useNavigate();
+const navigateBack = () => {
+    // 👇️ navigate back
+    navigateTo('/user/leaverequests');};
 // const [userFirstname, setFirstName] = useState();
 // const [userLasttname, setLastName] = useState();
 // const [userEmail, setEmail] = useState();
@@ -64,7 +67,7 @@ useEffect(() => {
             .postLeaveRequest(token, leave)
             .then((res) => {
             console.log("Successfully added a leave request");
-            navigateTo("/user/leaverequest");
+            navigateTo("/user/leaverequests");
             })
             .catch((error) => {
             console.log(error);
