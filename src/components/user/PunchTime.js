@@ -26,16 +26,16 @@ const PunchTime = () => {
 
   return (
     <>
-    <UserSideBar/>
-    <div className="l-app__body">
-      <header className="l-header">
-                <div className="l-header__wrapper">
-                    <h4 className="heading-4">Punch Time</h4>
-                </div>
-                
-      </header>
-      <div className="l-page">
-        <div align="center" className="container-fluid">
+    <Box
+          sx={{
+            paddingTop:'5%',
+            width: 500,
+            marginTop: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            margin:'auto',
+          }}>
         <Card sx={{
                             width: 500,
                             height:'auto',
@@ -100,9 +100,11 @@ const PunchTime = () => {
                           </Button>
                           </Box>
                       </Card>
-        </div>
-      </div>
-    </div>
+       </Box>
+
+   
+       
+       
         
     </>
   )

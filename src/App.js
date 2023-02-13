@@ -1,63 +1,58 @@
+import logo from './logo.svg';
 import './App.css';
-import './styles.css';
-import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
-import Login from './components/Login';
-import SignUp from './components/SignUp';
-import UserDashboard from './components/user/UserDashboard';
-import UserLeaveRequestList from './components/user/UserLeaveRequestList';
-import UserLeaveRequestForm from './components/user/UserLeaveRequestForm';
-import AdminDashboard from './components/admin/AdminDashboard';
-import TimeCard from './components/user/TimeCard';
-import PunchTime from './components/user/PunchTime';
-import AdminTimeCard from './components/admin/AdminTimeCard';
-import AdminLeaveRequestList from './components/admin/AdminLeaveRequestList';
-import Layout from './components/Layout';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import RequireAuth from './components/RequireAuth';
 import Missing from './components/Missing';
-import AdminViewLeaveRequest from './components/admin/AdminViewLeaveRequest';
-import AdminPunchTime from './components/admin/AdminPunchTime';
-
+import Dashboard from './pages/Dsahboard';
+import UserDashboard from './pages/user/UserDashboard';
+import Layout from './components/Layout';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import UserTimecard from './pages/user/UserTimeCard';
+import AdminTimeCard from './pages/admin/AdminTimeCard';
+import AdminLeaveRequests from './pages/admin/AdminLeaveRequests';
+import UserLeaverequest from './pages/user/UserLeaveRequest';
+import UserTimePunch from './pages/user/UserTimePunch';
+import UserLeaveRequestForm from './pages/user/UserLeaveRequestForm';
+import UserViewLeave from './pages/user/UserViewLeave';
+import AdminViewLeave from './pages/admin/AdminViewLeave';
 const ROLES = {
   'User': 2080,
   'Editor': 1984,
   'Admin': 5150
 }
-
-
-
 function App() {
   return (
     <div className="App">
-        <Routes>
-          <Route path="/" element={<Layout/>}>
-            
-            {/* public routes */}
-            <Route path="/" element={<Login />}></Route>
-            <Route path="/register" element={<SignUp />}></Route>
+    <Routes>
+      <Route path="/" element={<Layout />} >
+        
+        {/* public routes */}
+        <Route path="/" element={<Login/>}></Route>
+        <Route path="/register" element={<SignUp />}></Route>
 
-            <Route element={<RequireAuth/>}>
-              <Route path="/user/dashboard" element={<UserDashboard />}></Route>
-              <Route path="/user/punchtime" element={<PunchTime/>}></Route>
-              <Route path="/user/timecards" element={<TimeCard />}></Route>
-              <Route path="/user/leaverequests" element={<UserLeaveRequestList/>}></Route>
-              <Route path="/user/leaverequests/leaverequestform" element={<UserLeaveRequestForm/>}></Route>
-              <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
-              <Route path="/admin/timecard" element={<AdminTimeCard/>}></Route>
-              <Route path="/admin/punchtime" element={<AdminPunchTime/>}></Route>
-              <Route path="/admin/leaverequests" element={<AdminLeaveRequestList/>}></Route>
-              <Route path="/admin/leaverequests/viewleaverequests" element={<AdminViewLeaveRequest/>}></Route>
-             
-            </Route>
+        <Route element={<RequireAuth/>}>
+          <Route path="/user/dashboard" element={<UserDashboard />}></Route>
+          <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
+          <Route path="/admin/timecards" element={<AdminTimeCard/>}></Route>
+          <Route path="/admin/leaverequests" element={<AdminLeaveRequests/>}></Route>
+          <Route path="/admin/leaverequests/adminviewleave" element={<AdminViewLeave/>}></Route>
+          <Route path="/user/timecard" element={<UserTimecard />}></Route>
+          <Route path="/user/leaverequest" element={<UserLeaverequest />}></Route>
+          <Route path="/user/timepunch" element={<UserTimePunch />}></Route>
+          <Route path="/user/leaverequests/leaverequestform" element={<UserLeaveRequestForm />}></Route>
+          <Route path="/user/leaverequest/userviewleave" element={<UserViewLeave/>}></Route>
+        </Route>
 
-            <Route path="/*" element={<Missing />} />
+        <Route path="/*" element={<Missing />} />
 
-          </Route>
-        </Routes>
+      </Route>
+    </Routes>
     </div>
   );
 }

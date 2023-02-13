@@ -1,20 +1,23 @@
-import { ArrowBackIosNewRounded } from '@mui/icons-material';
-import { Divider, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextareaAutosize} from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import Image from './../../images/logo.png';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useLocation } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
 import { useNavigate } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 
-const AdminViewLeaveRequest = () => {
+const theme = createTheme();
+const AdminViewLeaveCard = () => {
+
     const navigateTo = useNavigate();
     const { auth } = useAuthContext();
     const [leaveData, setLeave] = useState();
@@ -63,70 +66,56 @@ const AdminViewLeaveRequest = () => {
         } catch (err) {
             console.log(err) ;
         }
-    }
-    
-
-  return (
+    }       
+return (
     <>
-        
-    <div className="l-app__body">
-    <header className="l-header">
-               
-                <div className="l-header__wrapper">
-                <button onClick={navigateBack} className="pf-icon-btn pf-btn-secondary"  ><ArrowBackIosNewRounded/>
-                </button>
-                    <h4 className="heading-4">Leave request</h4>
-                </div>
-                
-    </header>
-    <div className="l-page">
-        <div className="container">
-                {[leaveData]?.map((item, index) => {
-                return(
-                    <Box key={index} component="form" noValidate onSubmit={handleSubmit} sx={{  width: 1000, }}>
-                            <Grid container spacing={4}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                name="firstName"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                value={item?.postedBy.firstName || ""}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                value={item?.postedBy.lastName || ""}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email"
-                                name="email"
-                                value={item?.postedBy.email || ""}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                required
-                                fullWidth
-                                id="contactnum"
-                                label="Contact Number"
-                                name="contactnum"
-                                value={item?.postedBy.contactnum || ""}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                            <FormControl fullWidth>
+    <Container>
+           {[leaveData]?.map((item, index) => {
+                   return(
+                       <Box component="form" noValidate  onSubmit={handleSubmit}  sx={{  width: 1000, }}>
+                               <Grid container spacing={4}>
+                               <Grid item xs={12} sm={6}>
+                                   <TextField
+                                   name="firstName"
+                                   required
+                                   fullWidth
+                                   id="firstName"
+                                   label="First Name"
+                                   value={item?.postedBy.firstName || ""}
+                                   />
+                               </Grid>
+                               <Grid item xs={12} sm={6}>
+                                   <TextField
+                                   required
+                                   fullWidth
+                                   id="lastName"
+                                   label="Last Name"
+                                   name="lastName"
+                                   value={item?.postedBy.lastName || ""}
+                                   />
+                               </Grid>
+                               <Grid item xs={12}>
+                                   <TextField
+                                   required
+                                   fullWidth
+                                   id="email"
+                                   label="Email"
+                                   name="email"
+                                   value={item?.postedBy.email || ""}
+                                   />
+                               </Grid>
+                               <Grid item xs={12}>
+                                   <TextField
+                                   required
+                                   fullWidth
+                                   id="contactnum"
+                                   label="Contact Number"
+                                   name="contactnum"
+                                   value={item?.postedBy.contactnum || ""}
+                                   />
+                               </Grid>
+                               <Grid item xs={12}>
+                               <FormControl fullWidth>
                             <InputLabel id="leave-type"></InputLabel>
                             <TextField
                                 
@@ -136,9 +125,9 @@ const AdminViewLeaveRequest = () => {
                                 />
                                   
                                 </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                            <InputLabel id="date-from"></InputLabel>
+                               </Grid>
+                               <Grid item xs={12} sm={6}>
+                               <InputLabel id="date-from"></InputLabel>
                             <TextField
                                 
                                 fullWidth
@@ -147,10 +136,9 @@ const AdminViewLeaveRequest = () => {
                                 label="From"
                                 value={item?.dateFrom || ""}
                                 />
-                            
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                            <InputLabel id="date-to"></InputLabel>
+                               </Grid>
+                               <Grid item xs={12} sm={6}>
+                               <InputLabel id="date-to"></InputLabel>
                             <TextField
                                 
                                 fullWidth
@@ -159,10 +147,9 @@ const AdminViewLeaveRequest = () => {
                                     label="To"
                                     value={item?.dateTo || ""}
                                 />
-                           
-                            </Grid>
-                            <Grid item xs={12}>
-                            <TextField
+                               </Grid>
+                               <Grid item xs={12}>
+                               <TextField
                                     fullWidth
                                     multiline
                                     label="Subject (reason)"
@@ -172,9 +159,9 @@ const AdminViewLeaveRequest = () => {
                                     value={item?.subject || ""}
                                     
                                 />
-                            </Grid>
-                            </Grid>
-                            <Button
+                               </Grid>
+                               </Grid>
+                               <Button
                             value="Accepted"
                             onClick={(e) => setStatus(e.target.value)}
                             type="submit"
@@ -204,18 +191,12 @@ const AdminViewLeaveRequest = () => {
                             >
                             Reject
                             </Button>
-                        </Box>
-                )
-            })}
-    </div>
-    </div>
-    
-
- </div>
-
-    
-</>
-  )
+                           </Box>
+                   )
+               })}
+           </Container>
+   </>
+ )
 }
 
-export default AdminViewLeaveRequest;
+export default AdminViewLeaveCard;

@@ -1,22 +1,28 @@
-import React from 'react';
-import Divider from '@mui/material/Divider';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Box from '@mui/material/Box';
-import { ArrowBackIosNewOutlined, CardGiftcardOutlined, Dashboard, DashboardCustomizeOutlined, ExitToAppOutlined, LoginOutlined, PunchClockOutlined, PunchClockRounded, TimeToLeaveOutlined, TimeToLeaveRounded, Watch } from '@mui/icons-material';
-import Image from './../../images/logo.png';
-import { Grid } from '@mui/material';
-import { borderRight } from '@mui/system';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { NetworkLocked, PunchClockOutlined, DashboardCustomizeOutlined,  LoginOutlined, PunchClockRounded} from '@mui/icons-material';
 import { useLogout } from '../../hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
 
-
-const UserSideBar = () => {
-
-const navigateTo = useNavigate();
+  export default function UserSidebar() {
+    const navigateTo = useNavigate();
 const { logout } = useLogout();
 
 const handleClick = () => {
@@ -27,50 +33,62 @@ const handleClick = () => {
     } catch (err) {
     }
 }
-  
-  return (
-    <div className="l-side-nav">
-        <div className="l-side-nav__header">
-        <img className="l-side-nav__logo" src={Image} alt="logo" />
-        </div>
-        <div className="l-side-nav__content">
-            <div className="l-side-nav__nav-items">
-            <List>
-            <ListItem divider>
-                <a className="c-menu-item" href="/user/dashboard">
-                    <DashboardCustomizeOutlined/> Dashboard
-                </a>
-            </ListItem> 
-            <ListItem divider>
-            <a className="c-menu-item" href="/user/punchtime">
-                <PunchClockRounded/>Punch Time
-                </a>
-            </ListItem>
-            <ListItem divider>
-            <a className="c-menu-item" href="/user/timecards">
-                <CardGiftcardOutlined/>Time Cards
-                </a>
-            </ListItem>
-            <ListItem divider>
-            <a className="c-menu-item" href="/user/leaverequests">
-                <TimeToLeaveOutlined/>Leave Requests
-                </a>    
-            </ListItem>  
-               
-            
-            </List>
-            </div>
-            
-            <List>
-                    <div className="c-menu-item" onClick={handleClick}>
-                    <ListItem divider> 
-                    <LoginOutlined/>Logout
-                    </ListItem>
-                    </div>
-            </List>
-        </div>
-    </div>
-  )
+    
+    return (
+        <List>
+         
+        <ListItem disablePadding>
+          <ListItemButton href="/user/dashboard">
+            <ListItemIcon>
+              <DashboardCustomizeOutlined /> 
+            </ListItemIcon>
+            <ListItemText>
+            Dashboard
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton href="/user/timecard">
+            <ListItemIcon>
+              <PunchClockOutlined /> 
+            </ListItemIcon>
+            <ListItemText>
+            Time Card
+            </ListItemText>
+          </ListItemButton >
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton href="/user/timepunch">
+            <ListItemIcon>
+              <PunchClockRounded /> 
+            </ListItemIcon>
+            <ListItemText>
+            PunchTime
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton href="/user/leaverequests">
+            <ListItemIcon>
+              <NetworkLocked /> 
+            </ListItemIcon>
+            <ListItemText>
+            Leave Requests
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+      
+        <ListItem>
+          <ListItemButton onClick={handleClick}>
+            <ListItemIcon>
+              <LoginOutlined/> 
+            </ListItemIcon>
+            <ListItemText>
+            Logout
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+    </List>
+      
+    );
 }
-
-export default UserSideBar;
