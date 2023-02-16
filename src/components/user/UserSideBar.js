@@ -1,22 +1,28 @@
-import React from 'react';
-import Divider from '@mui/material/Divider';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Box from '@mui/material/Box';
-import { Dashboard, ExitToAppOutlined, LoginOutlined, PunchClockRounded, Watch } from '@mui/icons-material';
-import Image from './../../images/logo.png';
-import { Grid } from '@mui/material';
-import { borderRight } from '@mui/system';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { NetworkLocked, PunchClockOutlined, DashboardCustomizeOutlined,  LoginOutlined, PunchClockRounded} from '@mui/icons-material';
 import { useLogout } from '../../hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
 
-
-const UserSideBar = () => {
-
-const navigateTo = useNavigate();
+  export default function UserSidebar() {
+    const navigateTo = useNavigate();
 const { logout } = useLogout();
 
 const handleClick = () => {
@@ -27,91 +33,62 @@ const handleClick = () => {
     } catch (err) {
     }
 }
-  
-  return (
-        <Grid item xs={2} sx={{ height:'full' }}>
-            <Box sx={{
-                    width:'16.6667%',
-                    paddingTop:2,
-                    flexDirection: 'column',
-                    height:1,
-                    position:'fixed',
-                    borderRight:1,
-                }}>
-
-                {/* <Box sx={{
-                    width:1,
-                    flexDirection: 'column',
-                    paddingTop:2,
-                    marginRight:0
-                }}> */}
-
-                    <Box
-                    sx={{
-                        width: 100,
-                        marginTop: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        margin:'auto',
-                        marginBottom:0,
-            
-                    }}
-                    >
-                    <img src={Image} alt="logo" />
-                    </Box>
-                    <Divider variant="middle" sx={{backgroundColor:"grey"}} />
-                    <List>
-                        <ListItem divider>
-                            <ListItemButton href="/user/dashboard">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <Dashboard/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Dashboard" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemButton href="/user/punchtime">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <PunchClockRounded/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Punch Time" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemButton href="/user/timecards">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <Watch/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Time Cards" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                            <ListItemButton href="/user/leaverequests">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <ExitToAppOutlined/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Leave Requests" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                    <Box sx={{
-                        marginTop:35
-                    }}>
-                    <List>
-                        <ListItem>
-                        <ListItemButton onClick={handleClick}>
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <LoginOutlined/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Logout" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                    </Box>
-                {/* </Box> */}
-            </Box>
-        </Grid>
-  )
+    
+    return (
+        <List>
+         
+        <ListItem disablePadding>
+          <ListItemButton href="/user/dashboard">
+            <ListItemIcon>
+              <DashboardCustomizeOutlined /> 
+            </ListItemIcon>
+            <ListItemText>
+            Dashboard
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton href="/user/timecard">
+            <ListItemIcon>
+              <PunchClockOutlined /> 
+            </ListItemIcon>
+            <ListItemText>
+            Time Card
+            </ListItemText>
+          </ListItemButton >
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton href="/user/timepunch">
+            <ListItemIcon>
+              <PunchClockRounded /> 
+            </ListItemIcon>
+            <ListItemText>
+            PunchTime
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton href="/user/leaverequest">
+            <ListItemIcon>
+              <NetworkLocked /> 
+            </ListItemIcon>
+            <ListItemText>
+            Leave Requests
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+      
+        <ListItem>
+          <ListItemButton onClick={handleClick}>
+            <ListItemIcon>
+              <LoginOutlined/> 
+            </ListItemIcon>
+            <ListItemText>
+            Logout
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+    </List>
+      
+    );
 }
-
-export default UserSideBar;
