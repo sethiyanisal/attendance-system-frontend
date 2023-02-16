@@ -148,16 +148,16 @@ const UserLeaveRequestList = () => {
               <StyledTableCell component="th" scope="row">
                 {index+1}
               </StyledTableCell>
-              <StyledTableCell align="center">{item.leavetype}</StyledTableCell>
-              <StyledTableCell align="center">{item.subject}</StyledTableCell>
-              <StyledTableCell align="center">
+              <StyledTableCell align="left">{item.leavetype}</StyledTableCell>
+              <StyledTableCell align="left">{item.subject}</StyledTableCell>
+              <StyledTableCell align="left">
               <Typography color='primary'  sx={{
                            
                           fontFamily: 'BlinkMacSystemFont',
                           }}>
                             {item.status}
                           </Typography></StyledTableCell>
-              <StyledTableCell align="center">
+              <StyledTableCell align="left">
               <Link to= "/user/leaverequest/userviewleave" state= {{id:item._id}} style={{ textDecoration: "none" }}>
               <Button variant="outlined" color="primary">
                  View
