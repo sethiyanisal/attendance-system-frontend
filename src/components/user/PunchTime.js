@@ -90,45 +90,20 @@ const handleSubmitPunchOut = async (e) => {
 }
 
   return (
-        <Grid container sx={{ height:'auto' }}>
-          <UserSideBar/>
-          <Grid item xs={10} sx={{ height: 1 }}>
-            <Box sx={{
-                  width:'auto',
-                  flexDirection: 'column',
-                  height:1,
-              }}>
-                <Box sx={{
+        <>
+          <Box sx={{
+                  paddingTop:'5%',
+                  width: 500,
+                  marginTop: 0,
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems:'flex-start'
-                  }}
-                  >
-                  <Typography component="h1" variant="h5" sx={{
-                    fontWeight:'bold',
-                    paddingTop:6,
-                    paddingLeft: 4,
-                    paddingBottom:4.5,
-                    }}>
-                     Punch Time
-                  </Typography>
-                 
-                </Box>
-                <Divider sx={{backgroundColor:"grey"}} />
-                <Box component="form" noValidate sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  flexWrap:'wrap',
+                  alignItems: 'center',
+                  margin:'auto',
                 }}>
-                   
-                    
                     <Card sx={{
                           width: 500,
-                          marginTop: 6,
-                          marginLeft: '30%',
                           height:'auto',
                           borderRadius:5,
-                          marginBottom:2,
                           }}>
                         <Box sx={{
                           marginTop:2,
@@ -205,10 +180,8 @@ const handleSubmitPunchOut = async (e) => {
                           }
                         </Box>
                     </Card>
-                </Box>
-            </Box>
-          </Grid>
-        </Grid>
+                  </Box>
+        </>
   )
 }
 
