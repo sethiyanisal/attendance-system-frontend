@@ -36,7 +36,7 @@ function App() {
         <Route path="/" element={<Login/>}></Route>
         <Route path="/register" element={<SignUp />}></Route>
 
-        <Route element={<RequireAuth/>}>
+        <Route element={<RequireAuth allowedRole={2080}/>}>
           <Route path="/user/dashboard" element={<UserDashboard />}></Route>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
           <Route path="/admin/timecards" element={<AdminTimeCard/>}></Route>
