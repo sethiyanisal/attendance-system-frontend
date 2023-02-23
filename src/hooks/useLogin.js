@@ -32,6 +32,7 @@ export const useLogin = () => {
       if (response.ok) {
         // save the user to local storage
         localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('isPunched', false);
   
         // update the auth context
         setAuth({user});
