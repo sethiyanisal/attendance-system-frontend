@@ -1,7 +1,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const RequireAuth = () => {
+const RequireAuth = ({ allowedRole }) => {
     const { auth } = useAuthContext();
     const location = useLocation();
 

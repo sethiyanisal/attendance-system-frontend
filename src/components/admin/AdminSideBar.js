@@ -1,84 +1,120 @@
-import React from 'react';
-import Divider from '@mui/material/Divider';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Box from '@mui/material/Box';
-import { Dashboard, ExitToAppOutlined, PunchClockRounded, Watch } from '@mui/icons-material';
-import Image from './../../images/logo.png';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { NetworkLocked, PunchClockOutlined, DashboardCustomizeOutlined,  LoginOutlined} from '@mui/icons-material';
+import { useLogout } from '../../hooks/useLogout';
+import { useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
+import {Container, createTheme,ThemeProvider } from '@mui/material';
+import { alignProperty } from '@mui/material/styles/cssUtils';
 
+const theme = createTheme({
+  primary: {
+    position:'absolute',
+   alignProperty:'bottom',
+  },
+ 
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
 
-const AdminSideBar = () => {
-  return (
-        <Grid item xs={2} sx={{ height: 'full' }}>
-            <Box sx={{
-                    width:1,
-                    flexDirection: 'column',
-                    borderRight:1,
-                    height:1,
-                }}>
+    
 
-                <Box sx={{
-                    width:1,
-                    flexDirection: 'column',
-                    paddingTop:2,
-                }}>
+  export default function AdminSidebar() {
+    const navigateTo = useNavigate();
+const { logout } = useLogout();
 
-                    <Box
-                    sx={{
-                        width: 100,
-                        marginTop: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        margin:'auto',
-                        marginBottom:0,
-            
-                    }}
-                    >
-                    <img src={Image} alt="logo" />
-                    </Box>
-                    <Divider variant="middle" sx={{backgroundColor:"grey"}} />
-                    <List>
-                        <ListItem divider>
-                        <ListItemButton href="/admin/dashboard">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <Dashboard/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Dashboard" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                        <ListItemButton href="/user/punchtime">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <PunchClockRounded/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Punch Time" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                        <ListItemButton href="/admin/timecard">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <Watch/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Time Cards" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem divider>
-                        <ListItemButton href="/admin/leaverequests">
-                                <ListItemIcon sx={{ color: "grey" }}>
-                                    <ExitToAppOutlined/>
-                                </ListItemIcon>
-                                <ListItemText  primary="Leave Requests" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </Box>
-            </Box>
-        </Grid>
-  )
+const handleClick = () => {
+    
+    try {
+        const response = logout();
+        navigateTo("/");
+    } catch (err) {
+    }
 }
+    return (
+      
+<Grid sx={{ 
+  justifyContent: "space-between",
+  height:"100%"           
+            }}>
+        <div className="l-side-nav__content">
+        <div className="l-side-nav__nav-items">
+  <List>
+<ListItem disablePadding>
+          <ListItemButton href="/admin/dashboard">
+            <ListItemIcon>
+              <DashboardCustomizeOutlined /> 
+            </ListItemIcon>
+            <ListItemText>
+            Dashboard
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="/admin/timecards">
+            <ListItemIcon>
+              <PunchClockOutlined /> 
+            </ListItemIcon>
+            <ListItemText>
+            Time Card
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+       
+        <ListItem  disablePadding>
+          <ListItemButton  href="/admin/leaverequests">
+            <ListItemIcon>
+              <NetworkLocked /> 
+            </ListItemIcon>
+            <ListItemText>
+            Leave Requests
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        </List>
+</div>
+        <List>
+        <div className="c-menu-item" onClick={handleClick}>
+                <ListItem divider> 
+                <LoginOutlined/>Logout
+                </ListItem>
+                </div>
+        </List>
 
-export default AdminSideBar;
+        </div>
+        
+</Grid>
+        
+      
+   
+    )
+}
