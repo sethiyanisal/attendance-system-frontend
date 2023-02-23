@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import {useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import TimePunchService from '../../routes/timePunchServiceRoutes';
+import { useDispatch, useSelector } from 'react-redux';
+import { punchInStatus, punchOutStatus } from '../../redux/timePunch';
 
 
 const PunchTime = () => {
@@ -16,13 +18,12 @@ const PunchTime = () => {
   const { auth } = useAuthContext();
 
   const [date, setDate] = useState(new Date());
-  const [currentDay, setCurrentDay] = useState();
-  const [currentDate, setCurrentDate] = useState();
-  const [currentTimeIn, setCurrentTimein] = useState();
-  const [currentTimeOut, setCurrentTimeOut] = useState();
-  const [totalHours, setTotalHours] = useState();
 
-  const [isPunched, setPunchStatus] = useState("");
+
+//  const {isPunched} = useSelector((state) => state.timepunch);
+//  const dispatch = useDispatch();
+
+const isPunched = JSON.parse(localStorage.getItem('isPunched'));
 
   useEffect(() => {
     const timerID = setInterval(() => tick(), 1000);
@@ -50,7 +51,7 @@ const PunchTime = () => {
         TimePunchService
             .createTimeCard(timecard, token)
             .then((res) => {
-            setPunchStatus(true);
+            localStorage.setItem('isPunched', true);
             console.log("Successfully added a Time card");
             })
             .catch((error) => {
@@ -71,11 +72,12 @@ const handleSubmitPunchOut = async (e) => {
 
   try {
       const token = auth.user.token;
+      const userID = auth.user.id;
 
       TimePunchService
-          .createTimeCard(timecard, token)
+          .completeTimeCard(timecard, token, userID)
           .then((res) => {
-          setPunchStatus("");
+          localStorage.setItem('isPunched', false);
           console.log("Successfully added a Time card");
           })
           .catch((error) => {
@@ -173,7 +175,7 @@ const handleSubmitPunchOut = async (e) => {
                         <Box sx={{
                            marginBottom:4,
                         }}>
-                          {(isPunched === "") ? <Button
+                          {(isPunched === false) ? <Button
                             type="submit"
                             onClick={handleSubmitPunchIn}
                             variant="outlined"
