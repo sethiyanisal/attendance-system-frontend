@@ -7,10 +7,19 @@ const createTimeCard = (timecard, token) => {
 
     return Axios.post("user/addtimecard", timecard, {headers: headers});
   };
+
+  const completeTimeCard = (timecard, token, userID) => {
+    const headers = {
+        'Authorization': 'Bearer ' +token 
+      }
+
+    return Axios.put("user/edittimecard/"+userID, timecard, {headers: headers});
+  };
   
   
   const TimePunchService = {
-    createTimeCard
+    createTimeCard,
+    completeTimeCard
   };
   
   export default TimePunchService;
