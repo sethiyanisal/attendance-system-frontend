@@ -7,12 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, Card } from '@mui/material';
+import { Button, Card, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
-
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import { Box } from '@mui/system';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor:'#2E3B55',
@@ -38,7 +40,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const AdminLeaveRequestList = () => {
   const { auth } = useAuthContext();
   const [leaveData, setLeave] = useState();
-
+  const [value, setValue] = useState('Accepted');
   useEffect(() => {
     
     const token = auth.user.token;
@@ -50,16 +52,45 @@ const AdminLeaveRequestList = () => {
         })
         .catch((error) => {
           console.log(error);
-        });
-
-        
+        });      
   }, []);
+  //Filter leave data
+  const filteredData = leaveData?.filter(leave => {
+    return leave.status === value;
+  });
+  console.log(filteredData);
+  //handleclick function for tabs to select filter status of the leave data 
+  const handleClick = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
+  <>
+    <Box sx={{ width: '100%',
+     marginLeft:2,
+    marginBottom:'2',
+    }}>
+  <Tabs
+  value={value}
+  onChange={handleClick}
+  textColor="secondary"
+  indicatorColor="secondary"
+  aria-label="secondary tabs example"
+
+  >
+  <Tab value="Accepted" label="Accepted" />
+  <Tab value="Pending" label="Pending" />
+  <Tab value="Declined" label="Declined" />
+  </Tabs>
+  </Box>
+  <Divider/>
+  <Box sx={{
+                            margin:2,
+                          }}>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Leave ID</StyledTableCell>
+            <StyledTableCell align="center">Leave ID</StyledTableCell>
             <StyledTableCell align="center">Name</StyledTableCell>
             <StyledTableCell align="center">Leave Type</StyledTableCell>
             <StyledTableCell align="center">Status</StyledTableCell>
@@ -67,9 +98,9 @@ const AdminLeaveRequestList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-        {leaveData?.map((item, index) => (
+        {filteredData?.map((item, index) => (
             <StyledTableRow key={index}>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {index+1}
               </StyledTableCell>
               <StyledTableCell align="center">{item?.postedBy.firstName}</StyledTableCell>
@@ -87,7 +118,8 @@ const AdminLeaveRequestList = () => {
         </TableBody>
       </Table>
     </TableContainer>
-  )
+    </Box>
+  </>)
 }
 
 export default AdminLeaveRequestList;

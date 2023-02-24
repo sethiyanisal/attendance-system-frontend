@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import {Container, createTheme,ThemeProvider } from '@mui/material';
 import { alignProperty } from '@mui/material/styles/cssUtils';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 const theme = createTheme({
   primary: {
@@ -97,6 +98,16 @@ const handleClick = () => {
             </ListItemIcon>
             <ListItemText>
             Leave Requests
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem  disablePadding>
+          <ListItemButton  href="/admin/adminleavemanagement">
+            <ListItemIcon>
+              <ManageAccountsIcon /> 
+            </ListItemIcon>
+            <ListItemText>
+            Leave Management
             </ListItemText>
           </ListItemButton>
         </ListItem>

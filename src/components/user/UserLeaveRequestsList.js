@@ -14,8 +14,11 @@ import {Typography} from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import leaveRequestService from '../../routes/leaveRequestServiceRoutes';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { useState, useMemo, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
 const theme = createTheme({
   
     palette: {
@@ -75,6 +78,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const UserLeaveRequestList = () => {
   const { auth } = useAuthContext();
   const [leaveData, setLeave] = useState();
+  const [value, setValue] = useState('Accepted');
+  
 
   useEffect(() => {
     const userID = auth.user.id;
@@ -88,6 +93,17 @@ const UserLeaveRequestList = () => {
           console.log(error);
         });
   }, []);
+  //Filter leave data
+  const filteredData = leaveData?.filter(leave => {
+    return leave.status === value;
+  });
+  console.log(filteredData);
+  //handleclick function for tabs to select filter status of the leave data 
+  const handleClick = (event, newValue) => {
+    setValue(newValue);
+  };
+ 
+ 
   return (
     <>
     <Grid container spacing={2}>
@@ -127,6 +143,22 @@ const UserLeaveRequestList = () => {
                        
                         </Box>
                         <Divider/>
+                        <Box sx={{ width: '100%',
+                                     marginTop:2,
+                                     marginLeft:2, }}>
+      <Tabs
+        value={value}
+        onChange={handleClick}
+        textColor="secondary"
+        indicatorColor="secondary"
+        aria-label="secondary tabs example"
+        
+      >
+        <Tab value="Accepted" label="Accepted" />
+        <Tab value="Pending" label="Pending" />
+        <Tab value="Declined" label="Declined" />
+      </Tabs>
+    </Box>
                         <Box sx={{
                             margin:2,
                           }}>
@@ -134,18 +166,18 @@ const UserLeaveRequestList = () => {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Leave ID</StyledTableCell>
-            <StyledTableCell  align="left">Leave Type</StyledTableCell>
-            <StyledTableCell align="left">Subject</StyledTableCell>
-            <StyledTableCell color= "#cddc39" align="left">Status</StyledTableCell>
-            <StyledTableCell align="left">Actions</StyledTableCell>
+            <StyledTableCell align="center">Leave ID</StyledTableCell>
+            <StyledTableCell  align="center">Leave Type</StyledTableCell>
+            <StyledTableCell align="center">Subject</StyledTableCell>
+            <StyledTableCell color= "#cddc39" align="center">Status</StyledTableCell>
+            <StyledTableCell align="center">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
         <ThemeProvider theme={theme}>
         <TableBody>
-          {leaveData?.map((item, index) => (
+          {filteredData?.map((item, index) => (
             <StyledTableRow key={index}>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center">
                 {index+1}
               </StyledTableCell>
               <StyledTableCell align="center">{item.leavetype}</StyledTableCell>
@@ -159,7 +191,7 @@ const UserLeaveRequestList = () => {
                           </Typography></StyledTableCell>
               <StyledTableCell align="center">
               <Link to= "/user/leaverequest/userviewleave" state= {{id:item._id}} style={{ textDecoration: "none" }}>
-              <Button variant="outlined" color="primary">
+              <Button  align="center" variant="outlined" color="primary">
                  View
               </Button>
               </Link>
