@@ -23,11 +23,12 @@ import UserViewLeave from './pages/user/UserViewLeave';
 import AdminViewLeave from './pages/admin/AdminViewLeave';
 import AdminLeaveManagement from './pages/admin/AdminLeaveManagement';
 import AdminLeaveAllocation from './pages/admin/AdminLeaveAllocation';
+
 const ROLES = {
-  'User': 2080,
-  'Editor': 1984,
-  'Admin': 5150
+  "User": 2080,
+  "Admin": 5150
 }
+
 function App() {
   return (
     <div className="App">
@@ -38,19 +39,22 @@ function App() {
         <Route path="/" element={<Login/>}></Route>
         <Route path="/register" element={<SignUp />}></Route>
 
-        <Route element={<RequireAuth allowedRole={2080}/>}>
+        <Route element={<RequireAuth allowedRole={[ROLES.User]}/>}>
           <Route path="/user/dashboard" element={<UserDashboard />}></Route>
+          <Route path="/user/timecard" element={<UserTimecard />}></Route>
+          <Route path="/user/leaverequest" element={<UserLeaverequest />}></Route>
+          <Route path="/user/timepunch" element={<UserTimePunch />}></Route>
+          <Route path="/user/leaverequests/leaverequestform" element={<UserLeaveRequestForm />}></Route>
+          <Route path="/user/leaverequest/userviewleave" element={<UserViewLeave/>}></Route>
+        </Route>
+
+        <Route element={<RequireAuth allowedRole={[ROLES.Admin]}/>}>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}></Route>
           <Route path="/admin/timecards" element={<AdminTimeCard/>}></Route>
           <Route path="/admin/leaverequests" element={<AdminLeaveRequests/>}></Route>
           <Route path="/admin/leaverequests/adminviewleave" element={<AdminViewLeave/>}></Route>
           <Route path="/admin/adminleavemanagement" element={<AdminLeaveManagement/>}></Route>
           <Route path="/admin/adminleavemanagement/allocation" element={<AdminLeaveAllocation/>}></Route>
-          <Route path="/user/timecard" element={<UserTimecard />}></Route>
-          <Route path="/user/leaverequest" element={<UserLeaverequest />}></Route>
-          <Route path="/user/timepunch" element={<UserTimePunch />}></Route>
-          <Route path="/user/leaverequests/leaverequestform" element={<UserLeaveRequestForm />}></Route>
-          <Route path="/user/leaverequest/userviewleave" element={<UserViewLeave/>}></Route>
         </Route>
 
         <Route path="/*" element={<Missing />} />
