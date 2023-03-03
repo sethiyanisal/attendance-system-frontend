@@ -38,7 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-const AdminManageLeaves = () => {
+const LeaveManagementTable = () => {
   const { auth } = useAuthContext();
   const [userData, setUserData] = useState();
   const [value, setValue] = useState('Accepted');
@@ -88,7 +88,7 @@ const AdminManageLeaves = () => {
               <StyledTableCell align="center">x</StyledTableCell>
               <StyledTableCell align="center">
              
-              <Link  to= "/admin/adminleavemanagement/allocation" state= {{id:item._id}} style={{ textDecoration: "none" }} >
+              <Link  to= "/admin/adminleavemanagement/leavesdetail" state= {{id:item._id}} style={{ textDecoration: "none" }} >
               <Button  variant="outlined" color="primary" sx={{
                 marginLeft:'5',
               }}>
@@ -105,4 +105,4 @@ const AdminManageLeaves = () => {
   </>)
 }
 
-export default AdminManageLeaves;
+export default LeaveManagementTable;

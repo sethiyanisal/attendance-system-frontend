@@ -23,6 +23,7 @@ import UserViewLeave from './pages/user/UserViewLeave';
 import AdminViewLeave from './pages/admin/AdminViewLeave';
 import AdminLeaveManagement from './pages/admin/AdminLeaveManagement';
 import AdminLeaveAllocation from './pages/admin/AdminLeaveAllocation';
+import AdminLeavesDetails from './pages/admin/AdminLeavesDetails';
 const ROLES = {
   'User': 2080,
   'Editor': 1984,
@@ -45,6 +46,7 @@ function App() {
           <Route path="/admin/leaverequests" element={<AdminLeaveRequests/>}></Route>
           <Route path="/admin/leaverequests/adminviewleave" element={<AdminViewLeave/>}></Route>
           <Route path="/admin/adminleavemanagement" element={<AdminLeaveManagement/>}></Route>
+          <Route path="/admin/adminleavemanagement/leavesdetail" element={<AdminLeavesDetails/>}></Route>
           <Route path="/admin/adminleavemanagement/allocation" element={<AdminLeaveAllocation/>}></Route>
           <Route path="/user/timecard" element={<UserTimecard />}></Route>
           <Route path="/user/leaverequest" element={<UserLeaverequest />}></Route>
