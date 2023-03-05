@@ -30,17 +30,23 @@ export const useLogin = () => {
         setError(user.error)
       }
       if (response.ok) {
-        // save the user to local storage
-        localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('isPunched', false);
-  
+
         // update the auth context
         setAuth({user});
-        
+
+        // save the user to local storage
+        localStorage.setItem('user', JSON.stringify(user))
   
         // update loading state
         setIsLoading(false);
-        navigateTo(from, { replace: true });
+        if(user.role === "2080"){
+          navigateTo("/user/dashboard");
+        }else if(user.role === "5150"){
+          navigateTo("/admin/dashboard");
+        }else{
+          navigateTo(from, { replace: true });
+        }
+        
       }
 
     
