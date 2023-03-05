@@ -13,6 +13,12 @@ import { Box } from '@mui/system';
 import {Typography} from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import DatePick from './DatePick';
+import moment from 'moment/moment';
+
+import { useAuthContext } from '../../hooks/useAuthContext';
+import TimePunchService from '../../routes/timePunchServiceRoutes';
+import { useState, useEffect } from 'react';
+
 const theme = createTheme({
   
     palette: {
@@ -67,122 +73,131 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(Leave_ID, Leave_Type, Subject, Status) {
-  return { Leave_ID, Leave_Type, Subject, Status };
-}
 
-const rows = [
-  createData('Froz', 159, 6.0, 24),
-  createData('Ice ', 237, 9.0, 37),
-  createData('Ecla', 262, 16.0, 24),
-  createData('Cupca', 305, 3.7, 67),
-  createData('Ginge', 356, 16.0, 49),
-];
 
 const UserTimeCardTable = () => {
+
+  const { auth } = useAuthContext();
+  const [timecardData, setTimecard] = useState();
+
+
+  useEffect(() => {
+    const userID = auth.user.id;
+    const token = auth.user.token;
+      TimePunchService
+        .getTimeCardsById(token, userID)
+        .then((res) => {
+          setTimecard(res.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, []);
+
   return (
     <>
     <Grid container spacing={2}>
   
-  <Grid item  md={12} xs={12}>
-  <Card sx={{
-                            height:'auto',
-                            borderRadius:5,
-                            marginBottom:2,
-                            }}>
-                              <Container>
-                              <Box sx={{
-                           marginTop:2,
-                           marginLeft:2,
-                           
-                          
-                        }}>
-                          <Toolbar sx={{ justifyContent: "space-between" }}>
-                          <ThemeProvider theme={theme}>
-                          <Typography component="h1" variant="h5" sx={{
-                            
-                            textAlign:'left',
-                            alignItems:'right',
-                          fontFamily: 'BlinkMacSystemFont',
-                          }}>
-                             Punch Time Recordings
-                          </Typography>
-                        </ThemeProvider>
-                               <div />
+    <Grid item  md={12} xs={12}>
+        <Card sx={{
+                    height:'auto',
+                    borderRadius:5,
+                    marginBottom:2,
+                  }}>
+                      <Container>
+                        <Box sx={{
+                                    marginTop:2,
+                                    marginLeft:2,
+                                  }}>
+                              <Toolbar sx={{ justifyContent: "space-between" }}>
+                                <ThemeProvider theme={theme}>
+                                  <Typography component="h1" variant="h5" 
+                                              sx={{
+                                                    textAlign:'left',
+                                                    alignItems:'right',
+                                                    fontFamily: 'BlinkMacSystemFont',
+                                              }}
+                                    >
+                                      Punch Time Recordings
+                                  </Typography>
+                                </ThemeProvider>
                                <Button
-                            href='/user/leaverequests/leaverequestform'
-                            type="submit" 
-                            align="right" variant="outlined" color="error">
-                              Print PDF
-                            </Button>
+                                    href='/user/leaverequests/leaverequestform'
+                                    type="submit" 
+                                    align="right" variant="outlined" color="error"
+                                >
+                                 Print PDF
+                                </Button>
                         
-                          </Toolbar>
+                            </Toolbar>
                           <Divider/>
                           <Box sx={{
-                           marginTop:2,
-                           marginLeft:0,}}>
+                                marginTop:2,
+                                marginLeft:0,}}>
                             <Toolbar >
-                       <FormControl>
-                                <DatePick/>
-                            </FormControl>
-                       </Toolbar>
-                           </Box>
+                              <FormControl>
+                                  <DatePick/>
+                              </FormControl>
+                            </Toolbar>
+                          </Box>
                        
                         </Box>
                       
                         <Box sx={{
                             margin:2,
                           }}>
-        <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Day</StyledTableCell>
-            <StyledTableCell  align="left">Date</StyledTableCell>
-            <StyledTableCell align="center">In</StyledTableCell>
-            <StyledTableCell  align="center">Out</StyledTableCell>
-            <StyledTableCell align="center">Total Hours</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <ThemeProvider theme={theme}>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.Leave_ID}>
-              <StyledTableCell >
-                {row.Leave_ID}
-              </StyledTableCell>
-              <StyledTableCell align="center">{row.Name}</StyledTableCell>
-              <StyledTableCell align="center">{row.Leave_Type}</StyledTableCell>
-              <StyledTableCell align="center">
-              <Typography color='primary'  sx={{
-                           
-                          fontFamily: 'BlinkMacSystemFont',
-                          }}>
-                            {row.Status}
-                          </Typography></StyledTableCell>
-              <StyledTableCell align="center">
-              <Button variant="outlined" color="primary">
-                 View
-              </Button>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-        </ThemeProvider>
-        
-      </Table>
-    </TableContainer>
-                          </Box>
-                              </Container>
-                        
-                          
-                      </Card>
-  </Grid>
-  
-</Grid>
-    </>
-    
-    
+                            <TableContainer component={Paper}>
+                              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                                <TableHead>
+                                  <TableRow>
+                                    <StyledTableCell align="left">Day</StyledTableCell>
+                                    <StyledTableCell  align="left">Date</StyledTableCell>
+                                    <StyledTableCell align="left">In</StyledTableCell>
+                                    <StyledTableCell  align="left">Out</StyledTableCell>
+                                    <StyledTableCell align="left">Total Hours</StyledTableCell>
+                                  </TableRow>
+                                </TableHead>
+                                <ThemeProvider theme={theme}>
+                                <TableBody>
+                                  {timecardData?.map((item, index) => (
+                                    <StyledTableRow key={index}>
+                                      <StyledTableCell >
+                                        {new Date(item.dateIn).toLocaleDateString('en-US', {weekday: 'long'})}
+                                      </StyledTableCell>
+                                      <StyledTableCell align="left">{new Date(item.dateIn).toLocaleDateString()}</StyledTableCell>
+                                      <StyledTableCell align="left">
+                                        <Typography color='green'  sx={{
+                                                      fontFamily: 'Segoe UI',
+                                                      }}>
+                                                  {new Date(item.dateIn).toLocaleTimeString()}
+                                        </Typography>
+                                      </StyledTableCell>
+                                      <StyledTableCell align="left">
+                                        <Typography color='brown'  sx={{
+                                                    fontFamily: 'Segoe UI',
+                                                    }}>
+                                                  {new Date(item.dateOut).toLocaleTimeString()}    
+                                        </Typography>
+                                      </StyledTableCell>
+                                      <StyledTableCell align="left">
+                                        {moment.utc(moment(new Date(item.dateOut).toLocaleTimeString(),"HH:mm:ss").diff(moment(new Date(item.dateIn).toLocaleTimeString(),"HH:mm:ss"))).format("HH:mm:ss")}
+                                        {/* <Button variant="outlined" color="primary">
+                                          View
+                                        </Button> */}
+                                      </StyledTableCell>
+                                    </StyledTableRow>
+                                  ))}
+                                </TableBody>
+                                </ThemeProvider>
+                                
+                              </Table>
+                            </TableContainer>
+                        </Box>
+                      </Container>     
+        </Card>
+    </Grid> 
+    </Grid>
+  </> 
   )
 }
 
