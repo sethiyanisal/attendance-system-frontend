@@ -35,7 +35,8 @@ export const useLogin = () => {
         setAuth({user});
 
         // save the user to local storage
-        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('isPunched', false);
   
         // update loading state
         setIsLoading(false);
