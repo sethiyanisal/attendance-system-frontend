@@ -23,6 +23,7 @@ import UserViewLeave from './pages/user/UserViewLeave';
 import AdminViewLeave from './pages/admin/AdminViewLeave';
 import AdminLeaveManagement from './pages/admin/AdminLeaveManagement';
 import AdminLeaveAllocation from './pages/admin/AdminLeaveAllocation';
+import Unauthorized from './components/Unauthorized';
 
 const ROLES = {
   "User": 2080,
@@ -38,6 +39,7 @@ function App() {
         {/* public routes */}
         <Route path="/" element={<Login/>}></Route>
         <Route path="/register" element={<SignUp />}></Route>
+        <Route path="/unauthorized" element={<Unauthorized/>}></Route>
 
         <Route element={<RequireAuth allowedRole={[ROLES.User]}/>}>
           <Route path="/user/dashboard" element={<UserDashboard />}></Route>
