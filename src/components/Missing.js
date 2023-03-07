@@ -1,14 +1,57 @@
+import { Card, Box, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 
 const Missing = () => {
     return (
-        <article style={{ padding: "100px" }}>
-            <h1>Oops!</h1>
-            <p>Page Not Found</p>
-            <div className="flexGrow">
-                <Link to="/">Visit Our Homepage</Link>
-            </div>
-        </article>
+        <Box sx={{
+            minHeight:'100vh',
+            width: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent:'center',
+            margin:'auto',
+          }}>
+            <Card sx={{
+                width:'auto',
+                height:'auto',
+                borderRadius:5,
+                backgroundColor:'#F4F4F4'
+                }}>
+                    <Box sx={{
+                            margin:20,
+                            marginTop:10,
+                            marginBottom:10,
+                            textAlign:'center'
+                            }}>
+                            <Typography sx={{
+                                fontWeight:'bold',
+                                color:'#060E37',
+                                fontSize:40,
+                                align:'center',
+                                }}>
+                                404
+                            </Typography>
+                            <Typography sx={{
+                                fontWeight:'bold',
+                                color:'#060E37',
+                                fontSize:40,
+                                align:'center',
+                                }}>
+                                Page Not Found
+                            </Typography>
+
+                            <Typography sx={{
+                                fontWeight:'semi-bold',
+                                color:'#060E37',
+                                fontSize:20,
+                                align:'center',
+                                }}>
+                                <Link to="/">Go to home page</Link>
+                            </Typography>
+                    </Box>
+            </Card>
+        </Box>
     )
 }
 
