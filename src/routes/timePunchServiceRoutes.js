@@ -23,12 +23,21 @@ const createTimeCard = (timecard, token) => {
 
     return Axios.get("user/gettimecards/"+userID, {headers: headers});
   };
+
+  const getAllTimeCards = (token) => {
+    const headers = {
+        'Authorization': 'Bearer ' +token 
+      }
+
+    return Axios.get("admin/getalltimecards/", {headers: headers});
+  };
   
   
   const TimePunchService = {
     createTimeCard,
     completeTimeCard,
-    getTimeCardsById
+    getTimeCardsById,
+    getAllTimeCards
   };
   
   export default TimePunchService;
