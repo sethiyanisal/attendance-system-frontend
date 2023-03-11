@@ -147,20 +147,29 @@ return (
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">Leave Types</StyledTableCell>
-            <StyledTableCell align="center">Allocated Amount</StyledTableCell>
-            <StyledTableCell align="center">Used Amount</StyledTableCell>
-            <StyledTableCell align="center">Leave Bal.</StyledTableCell>
+            <StyledTableCell align="center">Current Allocated Amount</StyledTableCell>
+            <StyledTableCell align="center">New Allocation Amount</StyledTableCell>
+           
             <StyledTableCell align="center">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
        <TableBody>
        <StyledTableCell align="center">
-               1
+               Casual Leaves
               </StyledTableCell>
               <StyledTableCell align="center">x</StyledTableCell>
-              <StyledTableCell align="center">x</StyledTableCell>
-              <StyledTableCell align="center">x</StyledTableCell>
-              <StyledTableCell align="center"><Button>Manage Leaves</Button></StyledTableCell>
+              <StyledTableCell align="center">
+      <div>
+        <TextField
+          label="Enter New-Value"
+          id="new-val"
+          defaultValue="x"
+          size="small"
+        />
+        
+      </div>
+              </StyledTableCell>
+              <StyledTableCell align="center"><Button>Change</Button></StyledTableCell>
            
        </TableBody>
       </Table>
