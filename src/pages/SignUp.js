@@ -14,44 +14,141 @@ import Image from './../images/logo.png';
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from '../routes/axios';
+import allocatedLeavesService from '../routes/allocatedLeavesServiceRoutes';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 
 
 const theme = createTheme();
-
 const REGISTER_URL = "/register";
+
 
 export default function SignUp() {
 
     const navigateTo = useNavigate();
     const userRef = useRef();
     const errRef = useRef();
-
+    const [errMsg, setErrMsg] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
     
+//User Details
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [contactnum, setContactNum] = useState("");
+    const [employeeType, setEmpType] = useState('64018c4974df026c16a62189');
     const [password, setPassword] = useState("");
     const [conpassword, setConPassword] = useState("");
     const [userRole, setUserRole] = useState("2080");
+//Leave types
+    const [empTypeLeaves, setEmpTypeLeaves] = useState("");
+    const [leaveTypes, setLeaveTypes] = useState();
+    // const [AnnualLeaves, setannualleaves] = useState("");
+    // const [CasualLeaves, setcasualleaves] = useState("");
+    // const [BDayLeaves, setbdayleaves] = useState("");
+    // const [PDLeaves, setpdleaves] = useState("");
 
-    const [errMsg, setErrMsg] = useState("");
-    const [success, setSuccess] = useState(false);
+  
+    
+    
+    //Call Employee Types
+    useEffect(() => { 
+    allocatedLeavesService
+    .viewEmpLeaveTypes()
+    .then((res) => {
+      setLeaveTypes(res.data);
+      console.log(res.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });      
+    }, []);
 
-
+    const handleChange = async (e) => {
+   
+      setEmpType(e.target.value);
+      try {
+          const empTypeID = employeeType;
+            allocatedLeavesService
+              .getEmpTypeLeavesById(empTypeID)
+              .then((res) => {
+                setEmpTypeLeaves(res.data);
+                console.log(res.data);
+                try {
+                  
+                } catch (err) {
+                  
+                }
+               
+              })
+              .catch((err) => {
+                console.log(err);
+              });             
+      } catch (error) {
+        console.log(error);
+      }};
+      
+    
+      console.log(empTypeLeaves);
+      console.log(employeeType);
+  
+   
+    
+  
+  
+   
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+   
     const handleSubmit = async (e) => {
       e.preventDefault();
      
+      
       try {
-          const response = await Axios.post(REGISTER_URL,
-              JSON.stringify({ firstName, lastName, email, contactnum, password, conpassword, userRole }),
+        //Post User Signup Form
+        const response = await Axios.post(REGISTER_URL,
+              JSON.stringify({ firstName, lastName, email, contactnum, employeeType, password, conpassword, userRole }),
               {
                   headers: { 'Content-Type': 'application/json' },
               }
           );
-          navigateTo("/");
+          navigateTo("/user/dashboard");
           // TODO: remove console.logs before deployment
           console.log(JSON.stringify(response?.data));
+         
+          //Allocating Default User Type leaves for the user
+          const AnnualLeaves = empTypeLeaves.annualleaves;
+      const CasualLeaves = empTypeLeaves.casualleaves;
+      const BDayLeaves = empTypeLeaves.bdayleaves;
+      const PDLeaves = empTypeLeaves.pdleaves;
+         
+            let leaves ={
+              annualleaves:AnnualLeaves,
+             casualleaves:CasualLeaves,
+              bdayleaves:BDayLeaves,
+              pdleaves:PDLeaves,
+            };  
+          try {
+            const token = response?.data.token;
+              allocatedLeavesService
+                  .postLeaveAllocation(token, leaves)
+                  .then((res) => {
+                  console.log("Successfully added a leave request and registration");
+                  navigateTo("/user/dashboard");
+                  })
+                  .catch((error) => {
+                  console.log(error);
+                  });              
+          } catch (err) {
+              console.log(err) ;
+          }
           //console.log(JSON.stringify(response))
           setSuccess(true);
       } catch (err) {
@@ -59,14 +156,20 @@ export default function SignUp() {
               setErrMsg('No Server Response');
           } else if (err.response?.status === 409) {
               setErrMsg('Username Taken');
-          } else {
-              setErrMsg('Registration Failed')
           }
-          
+          else {
+              setErrMsg('Registration Failed')
+          }         
       }
   }
-
   
+
+
+//Call Leaves Allocation By Employe Types
+
+ 
+ 
+ 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main"  sx={{paddingTop: 4, paddingBottom: 4,}}>
@@ -113,7 +216,7 @@ export default function SignUp() {
         >
           <Card sx={{marginTop: 4, borderRadius:3,}}>
           <CardContent>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate  onSubmit={handleSubmit}  sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -167,6 +270,50 @@ export default function SignUp() {
                   onChange={(e) => setContactNum(e.target.value)}
                 />
               </Grid>
+             
+
+              <Grid item xs={8}>
+              <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Employee Type</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={employeeType}
+          label="Employee Type"
+          onChange={handleChange}
+         
+        >{leaveTypes?.map((item, index) => (
+          <MenuItem key={index} value={item.employeetype}>{item.employeetype}</MenuItem>
+          ))}
+          </Select> 
+      </FormControl>
+    </Box>
+               </Grid>
+
+              <Grid item xs={4}>
+              <Box sx={{
+                paddingTop:1, 
+                minWidth: 120
+               }}>
+              <Button
+              
+              id="demo-customized-button"
+              aria-controls={open ? 'demo-customized-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              variant="contained"
+              disableElevation
+              onClick={handleClick}
+              endIcon={<KeyboardArrowDownIcon />}
+       
+      >
+        Options
+      </Button>
+      </Box>
+              </Grid>
+             
+              
               <Grid item xs={12}>
                 <TextField
                   required

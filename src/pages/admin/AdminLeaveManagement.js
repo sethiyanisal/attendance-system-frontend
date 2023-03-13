@@ -14,7 +14,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Image from '../../images/logo.png';
 import AdminSideBar from '../../components/admin/AdminSideBar';
 import AdminLeaveRequestList from '../../components/admin/AdminLeaveRequestList';
-import AdminManageLeaves from '../../components/admin/AdminManageLeaves';
+
+import LeaveManagementTable from '../../components/admin/LeaveManagementTable';
 
 const drawerWidth = 240;
 
@@ -124,7 +125,7 @@ const AdminLeaveManagement = () => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-       <AdminManageLeaves/>
+       <LeaveManagementTable/>
       </Main>
     </Box>
   )
