@@ -24,6 +24,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import allocatedLeavesService from '../../routes/allocatedLeavesServiceRoutes';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor:'#2E3B55',
@@ -57,13 +58,13 @@ const AdminAllocateLeavesCard = () => {
         // 👇️ navigate back
         navigateTo('/admin/leaverequests');
       };
-    useEffect(() => {
-        const UserID = state.id;
+      useEffect(() => {
+        const allocationID = state.id;
         const token = auth.user.token;
-          leaveRequestService
-            .getUserDetailsById(UserID,token)
+          allocatedLeavesService
+            .viewLeaveAllocationById(allocationID,token)
             .then((res) => {
-                setUser(res.data.data);
+                setAllocation(res.data.data);
               console.log(res.data)
             })
             .catch((error) => {
@@ -115,7 +116,7 @@ return (
                                 }}>
                                <Grid item xs={12} sm={4} alignItems='left'>
                                <Typography sx={{ }} variant="h6" component="div">
-                          Name-{item?.firstName || ""} {item?.lastName || ""}
+                          Name-{item?.postedBy.firstName || ""} {item?.postedBy.lastName || ""}
                         </Typography>
                       
                                   

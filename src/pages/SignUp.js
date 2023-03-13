@@ -284,7 +284,7 @@ export default function SignUp() {
           onChange={handleChange}
          
         >{leaveTypes?.map((item, index) => (
-          <MenuItem key={index} value={item._id}>{item.employeetype}</MenuItem>
+          <MenuItem key={index} value={item.employeetype}>{item.employeetype}</MenuItem>
           ))}
           </Select> 
       </FormControl>

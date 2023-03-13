@@ -1,5 +1,6 @@
 import { Divider, FormControl, InputLabel, MenuItem, Select, TextareaAutosize} from '@mui/material';
 import { Box } from '@mui/system';
+import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -24,6 +25,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import allocatedLeavesService from '../../routes/allocatedLeavesServiceRoutes';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor:'#2E3B55',
@@ -48,7 +50,7 @@ const AdminLeavesDetailCard = () => {
 
     const navigateTo = useNavigate();
     const { auth } = useAuthContext();
-    const [userData, setUser] = useState();
+    const [allocationData, setAllocation] = useState();
     const {state} = useLocation()
    
     const {location} = useLocation();
@@ -58,12 +60,12 @@ const AdminLeavesDetailCard = () => {
         navigateTo('/admin/leaverequests');
       };
     useEffect(() => {
-        const UserID = state.id;
+        const allocationID = state.id;
         const token = auth.user.token;
-          leaveRequestService
-            .getUserDetailsById(UserID,token)
+          allocatedLeavesService
+            .viewLeaveAllocationById(allocationID,token)
             .then((res) => {
-                setUser(res.data.data);
+                setAllocation(res.data.data);
               console.log(res.data)
             })
             .catch((error) => {
@@ -98,7 +100,7 @@ const AdminLeavesDetailCard = () => {
 return (
     <>
     <Container>
-           {[userData]?.map((item, index) => {
+           {[allocationData]?.map((item, index) => {
                    return(
                        <Box component="form" noValidate    sx={{  
                         marginTop:3,
@@ -115,31 +117,55 @@ return (
                                 }}>
                                <Grid item xs={12} sm={4} alignItems='left'>
                                <Typography sx={{ }} variant="h6" component="div">
-                          Name-{item?.firstName || ""} {item?.lastName || ""}
+                          Name-{item?.postedBy.firstName || ""} {item?.postedBy.lastName || ""}
                         </Typography>
                       
                                   
                                </Grid>
                                <Grid item xs={12} sm={4}>
                                <Typography sx={{ }} variant="h6" component="div">
-                          Designation-{item?.firstName || ""} 
+                          Designation-{item?.postedBy.employeeType || ""} 
                           </Typography>
                        
                                   
                                </Grid>
                                <Grid item xs={12} sm={4} alignItems='left'>
                                <Typography sx={{ }} variant="h6" component="div">
-                          Employee Type-{item?.firstName || ""}
+                          Employee Type-{item?.postedBy.employeeType || ""}
                         </Typography>
                       
                                </Grid>
                                
                               
                                <Grid item xs={12}>
-                               <Typography variant="h6" noWrap component="div">
-                                Leave Management
-                                </Typography>
-                                <Divider/>
+                               <Box sx={{
+                           marginTop:2,
+                           marginLeft:2,
+                           
+                          
+                        }}>
+                          <Toolbar sx={{ justifyContent: "space-between" }}>
+                          <ThemeProvider theme={theme}>
+                          <Typography component="h1" variant="h5" sx={{
+                            
+                            textAlign:'left',
+                            alignItems:'right',
+                          fontFamily: 'BlinkMacSystemFont',
+                          }}>
+                             Leave Management
+                          </Typography>
+                        </ThemeProvider>
+                               <div />
+                               <Link  to= "/admin/adminleavemanagement/allocation" state= {{id:state.id}} style={{ textDecoration: "none" }} >
+              <Button  variant="outlined" color="primary" sx={{
+                marginLeft:'5',
+              }}>
+               Change Allocation
+              </Button></Link>
+                          </Toolbar>
+                       
+                        </Box>
+                        <Divider/>
                                 <Box sx={{
                             margin:2,
                           }}>
@@ -151,23 +177,46 @@ return (
             <StyledTableCell align="center">Allocated Amount</StyledTableCell>
             <StyledTableCell align="center">Used Amount</StyledTableCell>
             <StyledTableCell align="center">Leave Bal.</StyledTableCell>
-            <StyledTableCell align="center">Actions</StyledTableCell>
+           
           </TableRow>
         </TableHead>
        <TableBody>
-       <StyledTableCell align="center">
-               1
+        <TableRow>
+       <StyledTableCell align="left">
+               Annual Leaves
               </StyledTableCell>
+              <StyledTableCell align="center">{item?.annualleaves}</StyledTableCell>
               <StyledTableCell align="center">x</StyledTableCell>
               <StyledTableCell align="center">x</StyledTableCell>
+              
+              </TableRow> 
+              <TableRow>
+       <StyledTableCell align="left">
+               Casual Leaves
+              </StyledTableCell>
+              <StyledTableCell align="center">{item?.casualleaves}</StyledTableCell>
               <StyledTableCell align="center">x</StyledTableCell>
-              <StyledTableCell align="center"> <Link  to= "/admin/adminleavemanagement/allocation" state= {{id:state.id}} style={{ textDecoration: "none" }} >
-              <Button  variant="outlined" color="primary" sx={{
-                marginLeft:'5',
-              }}>
-                Leave Allocation
-              </Button></Link></StyledTableCell>
-           
+              <StyledTableCell align="center">x</StyledTableCell>
+
+              </TableRow> 
+              <TableRow>
+       <StyledTableCell align="left">
+               Birthday Leaves
+              </StyledTableCell>
+              <StyledTableCell align="center">{item?.bdayleaves}</StyledTableCell>
+              <StyledTableCell align="center">x</StyledTableCell>
+              <StyledTableCell align="center">x</StyledTableCell>
+             
+              </TableRow> 
+              <TableRow>
+       <StyledTableCell align="left">
+               Professional Devlopment Leaves
+              </StyledTableCell>
+              <StyledTableCell align="center">{item?.pdleaves}</StyledTableCell>
+              <StyledTableCell align="center">x</StyledTableCell>
+              <StyledTableCell align="center">x</StyledTableCell>
+              
+              </TableRow> 
        </TableBody>
       </Table>
     </TableContainer>

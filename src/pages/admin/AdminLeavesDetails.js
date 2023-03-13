@@ -19,7 +19,7 @@ const AdminLeavesDetails = () => {
 const navigateTo = useNavigate();
 const navigateBack = () => {
     // 👇️ navigate back
-    navigateTo('/admin/leaverequests');};
+    navigateTo('/admin/adminleavemanagement');};
 
 
 
