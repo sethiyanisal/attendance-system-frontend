@@ -107,7 +107,7 @@ return (
     <Container>
            {[allocationData]?.map((item, index) => {
                    return(
-                       <Box component="form" noValidate onSubmit={handleSubmit}   sx={{  
+                       <Box component="form" noValidate    sx={{  
                         marginTop:3,
                         width: 1000,
                         }}>
@@ -158,7 +158,6 @@ return (
             <StyledTableCell align="center">Current Allocated Amount</StyledTableCell>
             <StyledTableCell align="center">New Allocation Amount</StyledTableCell>
            
-            <StyledTableCell align="center">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
        <TableBody>
@@ -185,11 +184,7 @@ return (
         
       </div>
               </StyledTableCell>
-              <StyledTableCell align="center">
-              <Button
-              type="submit"
-              variant="contained">
-                Change</Button></StyledTableCell>
+              
               </TableRow> 
               <TableRow>
        <StyledTableCell align="center">
@@ -214,11 +209,7 @@ return (
         
       </div>
               </StyledTableCell>
-              <StyledTableCell align="center">
-              <Button
-              type="submit"
-              variant="contained">
-                Change</Button></StyledTableCell>
+             
               </TableRow> 
               <TableRow>
        <StyledTableCell align="center">
@@ -243,11 +234,7 @@ return (
         
       </div>
               </StyledTableCell>
-              <StyledTableCell align="center">
-              <Button
-              type="submit"
-              variant="contained">
-                Change</Button></StyledTableCell>
+            
               </TableRow> 
 
               <TableRow>
@@ -273,11 +260,7 @@ return (
         
       </div>
               </StyledTableCell>
-              <StyledTableCell align="center">
-              <Button
-              type="submit"
-              variant="contained">
-                Change</Button></StyledTableCell>
+              
               </TableRow>     
                
        </TableBody>
@@ -320,6 +303,21 @@ return (
                            </Box>
                    )
                })}
+                 <Button
+                           
+                            onClick={handleSubmit}
+                            type="submit"
+                            variant="contained"
+                            sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10, marginRight:'2px', color: 'white', backgroundColor:'blue', borderColor: 'black',
+                            '&:hover': {
+                            backgroundColor: '#393939',
+                            color: 'white',
+                            borderColor:'black'
+                            },   
+                            }}
+                            >
+                           Change
+                            </Button>
            </Container>
    </>
  )
