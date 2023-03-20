@@ -22,6 +22,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import allocatedLeavesService from '../../routes/allocatedLeavesServiceRoutes';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -44,21 +45,18 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 const theme = createTheme();
-const AdminLeaveAllocationCard = () => {
+const AdminAllocateLeavesCard = () => {
 
     const navigateTo = useNavigate();
     const { auth } = useAuthContext();
-    const [allocationData, setAllocation] = useState();
+    const [userData, setUser] = useState();
     const {state} = useLocation()
    
     const {location} = useLocation();
-    const [userAnnualLeaves, setAnnualLeaves] = useState();
-    const [userCasualLeaves, setCasualLeaves] = useState();
-    const [userBDayLeaves, setBDayLeaves] = useState();
-    const [userPDLeaves, setPDLeaves] = useState();
+    const [userLeaveStatus, setStatus] = useState();
     const navigateBack = () => {
         // 👇️ navigate back
-        navigateTo('/admin/adminleavemanagement');
+        navigateTo('/admin/leaverequests');
       };
       useEffect(() => {
         const allocationID = state.id;
@@ -77,21 +75,17 @@ const AdminLeaveAllocationCard = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
     
-        let allocation = {
-            annualleaves: userAnnualLeaves,
-            casualleaves: userCasualLeaves,
-            bdayleaves: userBDayLeaves,
-            pdleaves: userPDLeaves
-
+        let leavestatus = {
+            status: userLeaveStatus
         };
 
         try {
-            const allocationID = state.id;
+            const leaveID = state.id;
             const token = auth.user.token;
-            allocatedLeavesService
-                .editLeaveAllocationById(allocationID,token, allocation)
+            leaveRequestService
+                .editLeaveRequestById(leaveID,token, leavestatus)
                 .then((req ,res) => {
-                console.log("Updated Successfully");
+                console.log("Updated Status Successfully");
                 navigateTo("/admin/adminleavemanagement");
                 })
                 .catch((error) => {
@@ -105,7 +99,7 @@ const AdminLeaveAllocationCard = () => {
 return (
     <>
     <Container>
-           {[allocationData]?.map((item, index) => {
+           {[userData]?.map((item) => {
                    return(
                        <Box component="form" noValidate    sx={{  
                         marginTop:3,
@@ -129,14 +123,14 @@ return (
                                </Grid>
                                <Grid item xs={12} sm={4}>
                                <Typography sx={{ }} variant="h6" component="div">
-                          Designation-{item?.postedBy.employeeType || ""} 
+                          Designation-{item?.firstName || ""} 
                           </Typography>
                        
                                   
                                </Grid>
                                <Grid item xs={12} sm={4} alignItems='left'>
                                <Typography sx={{ }} variant="h6" component="div">
-                          Employee Type-{item?.postedBy.employeeType || ""}
+                          Employee Type-{item?.firstName || ""}
                         </Typography>
                       
                                </Grid>
@@ -147,7 +141,7 @@ return (
                                 Leave Management
                                 </Typography>
                                 <Divider/>
-                                <Box    sx={{
+                                <Box sx={{
                             margin:2,
                           }}>
     <TableContainer component={Paper}>
@@ -155,114 +149,26 @@ return (
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">Leave Types</StyledTableCell>
-            <StyledTableCell align="center">Current Allocated Amount</StyledTableCell>
-            <StyledTableCell align="center">New Allocation Amount</StyledTableCell>
-           
+            <StyledTableCell align="center">Allocated Amount</StyledTableCell>
+            <StyledTableCell align="center">Used Amount</StyledTableCell>
+            <StyledTableCell align="center">Leave Bal.</StyledTableCell>
+            <StyledTableCell align="center">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
        <TableBody>
-        <TableRow>
        <StyledTableCell align="center">
-               Annual Leaves
+               1
               </StyledTableCell>
-              <StyledTableCell align="center">{item?.annualleaves}</StyledTableCell>
-              <StyledTableCell align="center">
-      <div>
-        <TextField
-         fullWidth
-         multiline
-         label="Enter New-Value"
-         InputProps={{
-             inputComponent: TextareaAutosize
-         }}
-         value={userAnnualLeaves}
-         onChange={(e) => setAnnualLeaves(e.target.value)}
-          
-         
-          
-        />
-        
-      </div>
-              </StyledTableCell>
-              
-              </TableRow> 
-              <TableRow>
-       <StyledTableCell align="center">
-               Casual Leaves
-              </StyledTableCell>
-              <StyledTableCell align="center">{item?.casualleaves}</StyledTableCell>
-              <StyledTableCell align="center">
-      <div>
-        <TextField
-         fullWidth
-         multiline
-         label="Enter New-Value"
-         InputProps={{
-             inputComponent: TextareaAutosize
-         }}
-         value={userCasualLeaves}
-         onChange={(e) => setCasualLeaves(e.target.value)}
-          
-         
-          
-        />
-        
-      </div>
-              </StyledTableCell>
-             
-              </TableRow> 
-              <TableRow>
-       <StyledTableCell align="center">
-               Bday Leaves
-              </StyledTableCell>
-              <StyledTableCell align="center">{item?.bdayleaves}</StyledTableCell>
-              <StyledTableCell align="center">
-      <div>
-        <TextField
-         fullWidth
-         multiline
-         label="Enter New-Value"
-         InputProps={{
-             inputComponent: TextareaAutosize
-         }}
-         value={userBDayLeaves}
-         onChange={(e) => setBDayLeaves(e.target.value)}
-          
-         
-          
-        />
-        
-      </div>
-              </StyledTableCell>
-            
-              </TableRow> 
-
-              <TableRow>
-       <StyledTableCell align="center">
-               PD Leaves
-              </StyledTableCell>
-              <StyledTableCell align="center">{item?.pdleaves}</StyledTableCell>
-              <StyledTableCell align="center">
-      <div>
-        <TextField
-         fullWidth
-         multiline
-         label="Enter New-Value"
-         InputProps={{
-             inputComponent: TextareaAutosize
-         }}
-         value={userPDLeaves}
-         onChange={(e) => setPDLeaves(e.target.value)}
-          
-         
-          
-        />
-        
-      </div>
-              </StyledTableCell>
-              
-              </TableRow>     
-               
+              <StyledTableCell align="center">x</StyledTableCell>
+              <StyledTableCell align="center">x</StyledTableCell>
+              <StyledTableCell align="center">x</StyledTableCell>
+              <StyledTableCell align="center"> <Link  to= "/admin/adminleavemanagement/allocation" state= {{id:state.id}} style={{ textDecoration: "none" }} >
+              <Button  variant="outlined" color="primary" sx={{
+                marginLeft:'5',
+              }}>
+                Leaves
+              </Button></Link></StyledTableCell>
+           
        </TableBody>
       </Table>
     </TableContainer>
@@ -303,24 +209,10 @@ return (
                            </Box>
                    )
                })}
-                 <Button
-                           
-                            onClick={handleSubmit}
-                            type="submit"
-                            variant="contained"
-                            sx={{ mt: 4, mb: 4, mr: 0, width:'auto', borderRadius:10, marginRight:'2px', color: 'white', backgroundColor:'blue', borderColor: 'black',
-                            '&:hover': {
-                            backgroundColor: '#393939',
-                            color: 'white',
-                            borderColor:'black'
-                            },   
-                            }}
-                            >
-                           Change
-                            </Button>
            </Container>
    </>
  )
 }
 
-export default AdminLeaveAllocationCard;
+
+export default AdminAllocateLeavesCard;

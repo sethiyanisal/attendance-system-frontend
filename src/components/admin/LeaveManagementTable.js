@@ -16,6 +16,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Box } from '@mui/system';
 import UserService from '../../routes/userServiceRoutes';
+import allocatedLeavesService from '../../routes/allocatedLeavesServiceRoutes';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor:'#2E3B55',
@@ -38,17 +39,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-const AdminManageLeaves = () => {
+const LeaveManagementTable = () => {
   const { auth } = useAuthContext();
-  const [userData, setUserData] = useState();
+  const [allocationData, setAllocationData] = useState();
   const [value, setValue] = useState('Accepted');
   useEffect(() => {
     
     const token = auth.user.token;
-      UserService
-        .getAllUsers(token)
+      allocatedLeavesService
+        .viewAllEmpLeaveAllocations(token)
         .then((res) => {
-            setUserData(res.data);
+          setAllocationData(res.data);
           console.log(res.data)
         })
         .catch((error) => {
@@ -69,7 +70,7 @@ const AdminManageLeaves = () => {
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">ID</StyledTableCell>
-            <StyledTableCell align="center">Name</StyledTableCell>
+            <StyledTableCell align="left">Name</StyledTableCell>
             <StyledTableCell align="center">Annual Bal.</StyledTableCell>
             <StyledTableCell align="center">Casual Bal.</StyledTableCell>
             <StyledTableCell align="center">Total Used Leaves</StyledTableCell>
@@ -77,18 +78,18 @@ const AdminManageLeaves = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-        {userData?.map((item, index) => (
+        {allocationData?.map((item, index) => (
             <StyledTableRow key={index}>
               <StyledTableCell align="center" component="th" scope="row">
                 {index+1}
               </StyledTableCell>
-              <StyledTableCell align="center">{item?.firstName} {item?.lastName}</StyledTableCell>
-              <StyledTableCell align="center">x</StyledTableCell>
-              <StyledTableCell align="center">x</StyledTableCell>
+              <StyledTableCell align="left">{item?.postedBy.firstName} {item?.postedBy.lastName}</StyledTableCell>
+              <StyledTableCell align="center">{item?.annualleaves}</StyledTableCell>
+              <StyledTableCell align="center">{item?.casualleaves}</StyledTableCell>
               <StyledTableCell align="center">x</StyledTableCell>
               <StyledTableCell align="center">
              
-              <Link  to= "/admin/adminleavemanagement/allocation" state= {{id:item._id}} style={{ textDecoration: "none" }} >
+              <Link  to= "/admin/adminleavemanagement/leavesdetail" state= {{id:item._id}} style={{ textDecoration: "none" }} >
               <Button  variant="outlined" color="primary" sx={{
                 marginLeft:'5',
               }}>
@@ -105,4 +106,4 @@ const AdminManageLeaves = () => {
   </>)
 }
 
-export default AdminManageLeaves;
+export default LeaveManagementTable;

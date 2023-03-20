@@ -15,8 +15,13 @@ import Toolbar from '@mui/material/Toolbar';
 import DatePick from '../user/DatePick';
 import moment from 'moment/moment';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+
 import { useAuthContext } from '../../hooks/useAuthContext';
 import TimePunchService from '../../routes/timePunchServiceRoutes';
+import UserService from '../../routes/userServiceRoutes'
 import { useState, useEffect } from 'react';
 
 const theme = createTheme({
@@ -78,10 +83,20 @@ const AdminTimeCardTable = () => {
 
   const { auth } = useAuthContext();
   const [timecardData, setTimecard] = useState();
+  const [userData, setUserData] = useState();
+  const [value, setValue] = useState();
 
 
   useEffect(() => {
     const token = auth.user.token;
+      UserService
+        .getAllEmployees(token)
+        .then((res) =>{
+          setUserData(res.data.data);
+        })
+        .catch((error) =>{
+          console.log(error);
+        })
       TimePunchService
         .getAllTimeCards(token)
         .then((res) => {
@@ -91,6 +106,15 @@ const AdminTimeCardTable = () => {
           console.log(error);
         });
   }, []);
+
+   const filteredData = timecardData?.filter(timecard => {
+    return timecard.postedBy.firstName === value;
+  });
+  console.log(filteredData);
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   return (
     <>
@@ -109,11 +133,13 @@ const AdminTimeCardTable = () => {
                     }}>
               <Toolbar sx={{ justifyContent: "space-between" }}>
                 <ThemeProvider theme={theme}>
-                  <Typography component="h1" variant="h5" sx={{
-                                                                textAlign:'left',
-                                                                alignItems:'right',
-                                                              fontFamily: 'BlinkMacSystemFont',
-                            }}>
+                  <Typography component="h1" 
+                              variant="h5"
+                              sx={{
+                                    textAlign:'left',
+                                    alignItems:'right',
+                                    fontFamily: 'BlinkMacSystemFont',
+                              }}>
                               Punch Time Recordings
                   </Typography>
                 </ThemeProvider>
@@ -129,12 +155,29 @@ const AdminTimeCardTable = () => {
               <Box sx={{
                         marginTop:2,
                         marginLeft:0,
-                      }}>
-                <Toolbar >
-                  <FormControl>
+                    }}>
+                  <FormControl sx={{
+                    float:'left',
+                    marginBottom:2
+                  }}>
                       <DatePick/>
                   </FormControl>
-                </Toolbar>
+                  <FormControl sx={{minWidth:200,
+                                    float:'right',
+                                    marginRight:2
+                                    }}>
+                    <InputLabel id="name">Name</InputLabel>
+                    <Select
+                      labelId="name"
+                      id="select-name"
+                      label="Name"
+                      value={value}
+                      onChange={handleChange}
+                    >{userData?.map((item, index) =>(
+                      <MenuItem key={index} value={item.firstName}>{item.firstName}</MenuItem>
+                    ))}
+                    </Select>
+                  </FormControl>
               </Box>
                         
             </Box>
@@ -155,7 +198,7 @@ const AdminTimeCardTable = () => {
                         </TableHead>
                         <ThemeProvider theme={theme}>
                         <TableBody>
-                          {timecardData?.map((item, index) => (
+                          {filteredData?.map((item, index) => (
                             <StyledTableRow key={index}>
                                 <StyledTableCell >
                                     {new Date(item.dateIn).toLocaleDateString('en-US', {weekday: 'long'})}

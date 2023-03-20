@@ -9,16 +9,17 @@ import { useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import UserViewLeaveCard from '../../components/user/UserViewLeaveCard';
 import AdminViewLeaveCard from '../../components/admin/AdminViewLeaveCard';
-import AdminLeaveAllocationCard from '../../components/admin/AdminLeaveAllocationCard';
+
+import AdminLeavesDetailCard from '../../components/admin/AdminLeavesDetailCard';
 
 const theme = createTheme();
-const AdminLeaveAllocation = () => {
+const AdminLeavesDetails = () => {
 
 
 const navigateTo = useNavigate();
 const navigateBack = () => {
     // 👇️ navigate back
-    navigateTo('/admin/adminleavemanagement/leavesdetail');};
+    navigateTo('/admin/adminleavemanagement');};
 
 
 
@@ -58,7 +59,7 @@ return (
             alignItems: 'center',
             margin:'auto',
           }}>
-       <AdminLeaveAllocationCard/>
+       <AdminLeavesDetailCard/>
        </Box>
 
      </Container>
@@ -75,4 +76,4 @@ return (
 }
 
 
-export default AdminLeaveAllocation;
+export default AdminLeavesDetails;
