@@ -162,6 +162,7 @@ const AdminTimeCardTable = () => {
                   }}>
                       <DatePick/>
                   </FormControl>
+                  {/* filter by employee's name */}
                   <FormControl sx={{minWidth:200,
                                     float:'right',
                                     marginRight:2
